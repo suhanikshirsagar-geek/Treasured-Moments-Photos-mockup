@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treasured Moments Photos — Custom Photo Art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lobster&family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --primary: #fdd835;
+  --primary-dark: #776300;
+  --primary-hover: #ffe24a;
+  --bg: #fffdf0;
+  --dark: #2c2c28;
+  --surface-1: #fcfaec;
+  --surface-2: #f5f3e4;
+  --surface-3: #eae9d8;
+  --text: #2c2c28;
+  --text-light: #6b6b60;
+  --text-on-dark: #fffdf0;
+  --white: #ffffff;
+  --black-frame: #1a1a1a;
+  --white-frame: #f5f0e6;
+  --natural-frame: #b8956a;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --font: 'Noto Serif', Georgia, serif;
+  --shadow-soft: 0 20px 40px rgba(44,44,40,0.06);
+  --shadow-card: 0 4px 24px rgba(44,44,40,0.08);
+  --transition: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+}
+
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+input{font-family:var(--font)}
+ul{list-style:none}
+
+/* ===== UTILITIES ===== */
+.container{max-width:1240px;margin:0 auto;padding:0 2rem}
+.section{padding:6rem 0}
+.label-sm{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-light);font-weight:400;margin-bottom:1rem;display:block}
+.section-title{font-size:2.2rem;font-weight:700;letter-spacing:-0.03em;line-height:1.2;margin-bottom:0.4rem}
+.section-subtitle{font-size:0.95rem;color:var(--text-light);line-height:1.6}
+.btn-primary{background:var(--primary);color:var(--dark);padding:0.85rem 2rem;border-radius:var(--radius);font-weight:700;font-size:0.85rem;letter-spacing:0.01em;transition:var(--transition);display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary:hover{background:var(--primary-hover);transform:translateY(-1px)}
+.btn-text{color:var(--text);font-weight:600;font-size:0.85rem;display:inline-flex;align-items:center;gap:0.4rem;transition:var(--transition)}
+.btn-text:hover{color:var(--primary-dark)}
+.btn-text svg{transition:transform 0.2s}
+.btn-text:hover svg{transform:translateX(3px)}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-child>*{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in-child.visible>*{opacity:1;transform:translateY(0)}
+.fade-in-child.visible>*:nth-child(1){transition-delay:0s}
+.fade-in-child.visible>*:nth-child(2){transition-delay:0.08s}
+.fade-in-child.visible>*:nth-child(3){transition-delay:0.16s}
+.fade-in-child.visible>*:nth-child(4){transition-delay:0.24s}
+.fade-in-child.visible>*:nth-child(5){transition-delay:0.32s}
+.fade-in-child.visible>*:nth-child(6){transition-delay:0.4s}
+
+/* ===== 1. ANNOUNCEMENT BAR ===== */
+.announcement-bar{background:var(--dark);color:var(--primary);text-align:center;padding:0.55rem 1rem;font-size:0.68rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;position:sticky;top:0;z-index:1000}
+
+/* ===== 2. NAVIGATION ===== */
+.main-nav{background:rgba(255,253,240,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);position:sticky;top:36px;z-index:999;padding:0.9rem 0;transition:var(--transition)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1240px;margin:0 auto;padding:0 2rem}
+.nav-logo{font-size:1.25rem;color:var(--text);white-space:nowrap}
+.nav-logo em{font-style:italic;font-weight:400}
+.nav-logo span{font-weight:700;font-style:normal}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-size:0.8rem;color:var(--text);transition:var(--transition);padding:0.4rem 0;display:block;letter-spacing:0.01em}
+.nav-links a:hover{color:var(--primary-dark)}
+.nav-links li{position:relative}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:-1.5rem;background:var(--white);border-radius:var(--radius-lg);padding:1.2rem 1.5rem;min-width:220px;box-shadow:var(--shadow-card);opacity:0;visibility:hidden;transform:translateY(6px);transition:var(--transition);z-index:100}
+.nav-links li:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-dropdown a{padding:0.35rem 0;font-size:0.8rem;color:var(--text-light)}
+.nav-dropdown a:hover{color:var(--text)}
+.nav-icons{display:flex;gap:1.2rem;align-items:center}
+.nav-icon{width:20px;height:20px;color:var(--text);cursor:pointer;transition:var(--transition)}
+.nav-icon:hover{color:var(--primary-dark)}
+.cart-badge{position:relative}
+.cart-count{position:absolute;top:-5px;right:-7px;background:var(--primary);color:var(--dark);font-size:0.55rem;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text);transition:var(--transition)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:2000;padding:2rem;overflow-y:auto}
+.mobile-menu.active{display:block}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;font-size:1.5rem;cursor:pointer;color:var(--text);background:none;border:none;font-family:var(--font)}
+.mobile-menu ul{margin-top:3rem}
+.mobile-menu li{padding:0.8rem 0;border-bottom:1px solid var(--surface-2)}
+.mobile-menu a{font-size:1rem}
+
+/* ===== 3. HERO ===== */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;overflow:hidden}
+.hero-text{padding:4rem 4rem 4rem 0;padding-left:max(2rem,calc((100vw - 1240px)/2 + 2rem))}
+.hero-text .label-sm{margin-bottom:1.5rem;color:var(--primary-dark);font-weight:700}
+.hero h1{font-size:3.2rem;line-height:1.08;letter-spacing:-0.035em;margin-bottom:1.5rem}
+.hero p{font-size:1.05rem;color:var(--text-light);margin-bottom:2.5rem;max-width:440px;line-height:1.7}
+.hero-ctas{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.hero-img{height:100vh;overflow:hidden;position:relative}
+.hero-img img{width:100%;height:100%;object-fit:cover;animation:kenBurns 20s ease-in-out infinite alternate}
+@keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(1.04)}}
+.hero-text>*{opacity:0;animation:fadeUp 0.8s ease forwards}
+.hero-text>*:nth-child(1){animation-delay:0.1s}
+.hero-text>*:nth-child(2){animation-delay:0.25s}
+.hero-text>*:nth-child(3){animation-delay:0.4s}
+.hero-text>*:nth-child(4){animation-delay:0.55s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(20px)}}
+
+/* ===== 4. TRUST STRIP ===== */
+.trust-strip{background:var(--surface-2);padding:1.3rem 0}
+.trust-items{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text)}
+.trust-item svg{width:16px;height:16px;stroke:var(--text-light);fill:none;stroke-width:1.5}
+
+/* ===== 5. COLLECTIONS GRID ===== */
+.collections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.collection-card{cursor:pointer;transition:var(--transition)}
+.collection-card:hover{transform:translateY(-3px)}
+.collection-card-img{aspect-ratio:3/4;position:relative;overflow:hidden;border-radius:var(--radius)}
+.collection-card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 0.5s ease,transform 0.5s ease}
+.collection-card-img .img-hover{opacity:0}
+.collection-card:hover .img-primary{opacity:0}
+.collection-card:hover .img-hover{opacity:1;transform:scale(1.03)}
+.collection-card-text{padding:1rem 0.25rem 0}
+.collection-card-text h3{font-size:1rem;font-weight:700;letter-spacing:-0.01em;margin-bottom:0.15rem}
+.collection-card-text p{font-size:0.82rem;color:var(--text-light)}
+
+/* ===== 6. EDITORIAL BAND ===== */
+.editorial-band{background:var(--dark);color:var(--text-on-dark);overflow:hidden}
+.editorial-inner{display:grid;grid-template-columns:1.1fr 1fr;min-height:520px}
+.editorial-img{position:relative;overflow:hidden}
+.editorial-img img{width:100%;height:100%;object-fit:cover}
+.editorial-text{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.editorial-text .label-sm{color:var(--primary);margin-bottom:1rem}
+.editorial-text h2{font-size:2rem;letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1.15;color:var(--text-on-dark)}
+.editorial-text p{font-size:0.9rem;color:rgba(255,253,240,0.7);line-height:1.8;margin-bottom:1.5rem}
+.editorial-text .link-arrow{color:var(--primary);font-weight:700;font-size:0.85rem;display:inline-flex;align-items:center;gap:0.4rem;transition:var(--transition)}
+.editorial-text .link-arrow:hover{gap:0.7rem}
+
+/* ===== 7. HOW IT WORKS ===== */
+.hiw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative;margin-top:3rem}
+.hiw-step{text-align:center;position:relative;padding:0 1rem}
+.hiw-num{width:60px;height:60px;border:2px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--primary-dark);margin:0 auto 1.5rem;position:relative;z-index:1;background:var(--white)}
+.hiw-step h3{font-size:1rem;margin-bottom:0.6rem;letter-spacing:-0.01em}
+.hiw-step p{font-size:0.85rem;color:var(--text-light);line-height:1.6}
+.hiw-connector{position:absolute;top:30px;left:calc(33.33% + 30px);width:calc(33.33% - 60px);height:0;border-top:1.5px dashed var(--surface-3)}
+.hiw-connector-2{left:calc(66.66% + 30px)}
+.hiw-strip{margin-top:3rem;height:200px;border-radius:var(--radius);overflow:hidden}
+.hiw-strip img{width:100%;height:100%;object-fit:cover}
+
+/* ===== 8. BESTSELLERS CAROUSEL ===== */
+.products-scroll{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:0.5rem;scrollbar-width:none}
+.products-scroll::-webkit-scrollbar{display:none}
+.product-card{min-width:240px;max-width:240px;scroll-snap-align:start;cursor:pointer;flex-shrink:0;transition:var(--transition)}
+.product-card:hover{transform:translateY(-3px)}
+.product-card-img{aspect-ratio:1;overflow:hidden;position:relative}
+.product-card-img img{width:100%;height:100%;object-fit:cover;transition:var(--transition-slow)}
+.product-card-overlay{position:absolute;inset:0;background:rgba(44,44,40,0.3);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition)}
+.product-card:hover .product-card-overlay{opacity:1}
+.product-card-overlay span{color:var(--white);font-size:0.8rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;padding:0.6rem 1.4rem;border:1.5px solid var(--white);border-radius:var(--radius)}
+.product-card-body{padding:0.9rem 0.15rem 0}
+.product-card-body h3{font-size:0.88rem;font-weight:700;letter-spacing:-0.01em;margin-bottom:0.15rem}
+.product-card-rating{font-size:0.72rem;color:var(--text-light);margin-bottom:0.2rem}
+.product-card-rating svg{width:12px;height:12px;fill:var(--primary);vertical-align:middle}
+.product-card-price{font-size:0.88rem;font-weight:700;color:var(--primary-dark)}
+
+/* ===== 9. SPOTLIGHT ===== */
+.spotlight-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.spotlight-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:380px;display:flex;align-items:flex-end;cursor:pointer;transition:var(--transition)}
+.spotlight-card:hover{transform:translateY(-3px)}
+.spotlight-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:var(--transition-slow)}
+.spotlight-card:hover img{transform:scale(1.02)}
+.spotlight-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(44,44,40,0.75) 0%,rgba(44,44,40,0.1) 55%,transparent 100%)}
+.spotlight-content{position:relative;z-index:1;padding:2rem;color:var(--white)}
+.spotlight-content .label-sm{color:var(--primary);margin-bottom:0.6rem}
+.spotlight-content h3{font-size:1.4rem;margin-bottom:0.5rem;letter-spacing:-0.02em}
+.spotlight-content p{font-size:0.85rem;color:rgba(255,255,255,0.8);margin-bottom:1.2rem;line-height:1.5}
+
+/* ===== 10. REVIEWS ===== */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.review-card{background:var(--white);border-radius:var(--radius-lg);padding:2.5rem}
+.review-stars{display:flex;gap:2px;margin-bottom:1rem}
+.review-stars svg{width:14px;height:14px;fill:var(--primary)}
+.review-text{font-size:0.9rem;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:1.2rem}
+.review-author{font-size:0.78rem;color:var(--text-light)}
+.review-author strong{color:var(--text);font-style:normal}
+
+/* ===== 11. EMAIL CAPTURE ===== */
+.email-capture{background:radial-gradient(ellipse at center,var(--bg) 0%,rgba(253,216,53,0.12) 100%);text-align:center;padding:4rem 2rem;border-radius:var(--radius-lg)}
+.email-capture h2{font-size:1.8rem;letter-spacing:-0.02em;margin-bottom:0.4rem}
+.email-capture p{font-size:0.9rem;color:var(--text-light);margin-bottom:2rem}
+.email-form{display:flex;gap:0.6rem;max-width:420px;margin:0 auto}
+.email-form input{flex:1;padding:0.75rem 1.2rem;border:none;border-radius:var(--radius);background:var(--white);font-size:0.85rem;color:var(--text)}
+.email-form input:focus{outline:2px solid var(--primary)}
+.email-form button{background:var(--primary);color:var(--dark);padding:0.75rem 1.6rem;border-radius:var(--radius);font-weight:700;font-size:0.85rem;transition:var(--transition)}
+.email-form button:hover{background:var(--primary-hover)}
+
+/* ===== 12. FOOTER ===== */
+.main-footer{background:var(--dark);color:var(--text-on-dark);padding:4rem 0 2rem;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-bottom:3rem}
+.footer-col h4{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.2rem;color:var(--primary)}
+.footer-col li{margin-bottom:0.5rem}
+.footer-col a{font-size:0.82rem;color:rgba(255,253,240,0.55);transition:var(--transition)}
+.footer-col a:hover{color:var(--primary)}
+.footer-bottom{border-top:1px solid rgba(255,253,240,0.08);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.75rem;color:rgba(255,253,240,0.35)}
+.footer-payments{display:flex;gap:0.5rem}
+.footer-payments span{background:rgba(255,253,240,0.08);padding:0.25rem 0.6rem;border-radius:4px;font-size:0.65rem;color:rgba(255,253,240,0.45)}
+
+/* ===== PDP LAYOUT ===== */
+.pdp{padding:2rem 0 4rem}
+.pdp-breadcrumb{font-size:0.75rem;color:var(--text-light);margin-bottom:2rem;letter-spacing:0.02em}
+.pdp-breadcrumb a{color:var(--text-light);transition:var(--transition)}
+.pdp-breadcrumb a:hover{color:var(--text)}
+.pdp-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:3rem;align-items:start}
+.pdp-preview-col{position:sticky;top:100px}
+
+/* ===== LIVE PREVIEW ===== */
+.live-preview-container{background:var(--surface-1);border-radius:var(--radius-lg);padding:3rem;display:flex;align-items:center;justify-content:center;min-height:520px}
+.frame-preview{transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.frame-preview.size-8x10{width:240px}
+.frame-preview.size-11x14{width:300px}
+.frame-preview.size-12x16{width:340px}
+.frame-outer{padding:16px;border-radius:2px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.frame-outer.black-frame{background:linear-gradient(145deg,#2a2a2a 0%,#111 40%,#1e1e1e 60%,#252525 100%);box-shadow:inset 2px 2px 4px rgba(255,255,255,0.05),inset -1px -1px 3px rgba(0,0,0,0.5),0 8px 30px rgba(0,0,0,0.25)}
+.frame-outer.white-frame{background:linear-gradient(145deg,#faf8f0 0%,#ede8d8 40%,#f5f0e6 70%,#f8f4ea 100%);box-shadow:inset 1px 1px 3px rgba(255,255,255,0.8),inset -1px -1px 3px rgba(0,0,0,0.06),0 8px 30px rgba(0,0,0,0.08)}
+.frame-outer.natural-frame{background:linear-gradient(145deg,#d4a96a 0%,#a67c52 25%,#c49660 50%,#b8956a 75%,#c8a070 100%);box-shadow:inset 1px 1px 3px rgba(255,255,255,0.15),inset -1px -1px 3px rgba(0,0,0,0.2),0 8px 30px rgba(0,0,0,0.15)}
+.frame-mat{background:var(--white);padding:16px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.frame-image-area{width:100%;overflow:hidden;position:relative;background:var(--surface-2);transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.frame-preview.portrait .frame-image-area{aspect-ratio:4/5}
+.frame-preview.landscape .frame-image-area{aspect-ratio:5/4}
+.frame-image-area img{width:100%;height:100%;object-fit:cover}
+.frame-image-placeholder{text-align:center;color:var(--text-light);font-size:0.78rem;padding:2rem 1rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem}
+.frame-image-placeholder svg{opacity:0.4}
+.frame-text-area{text-align:center;padding-top:10px;min-height:20px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.frame-text-line{font-size:0.8rem;color:var(--text);line-height:1.3;transition:font-family 0.3s;min-height:1em}
+.preview-size-label{text-align:center;font-size:0.72rem;color:var(--text-light);margin-top:1.2rem;letter-spacing:0.05em}
+.trust-badges-row{display:flex;justify-content:center;gap:1.5rem;margin-top:1.2rem;flex-wrap:wrap}
+.trust-badge-item{display:flex;align-items:center;gap:0.35rem;font-size:0.68rem;color:var(--text-light);letter-spacing:0.03em}
+.trust-badge-item svg{width:14px;height:14px;stroke:var(--text-light);fill:none;stroke-width:1.5}
+
+/* ===== CUSTOMIZER PANEL ===== */
+.customizer-panel{background:var(--white);border-radius:var(--radius-lg);padding:2.2rem;box-shadow:var(--shadow-soft)}
+.customizer-header{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--surface-2)}
+.customizer-header h1{font-size:1.5rem;letter-spacing:-0.025em;margin-bottom:0.2rem;line-height:1.2}
+.customizer-header .tagline{font-size:0.85rem;color:var(--text-light);font-style:italic;margin-bottom:0.8rem}
+.customizer-header .price{font-size:1.4rem;font-weight:700;color:var(--primary-dark)}
+.customizer-header .price-from{font-size:0.78rem;font-weight:400;color:var(--text-light)}
+.customizer-header .rating{display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem;font-size:0.78rem;color:var(--text-light)}
+.customizer-header .rating svg{width:13px;height:13px;fill:var(--primary)}
+.customizer-step{margin-bottom:1.8rem}
+.step-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-light);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.5rem}
+.step-num{background:transparent;border:1.5px solid var(--primary);color:var(--primary-dark);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700}
+.size-options{display:flex;gap:0.5rem}
+.size-btn{flex:1;padding:0.65rem 0.4rem;border:1.5px solid var(--surface-3);border-radius:var(--radius);text-align:center;cursor:pointer;transition:var(--transition);background:var(--bg)}
+.size-btn:hover{border-color:var(--primary)}
+.size-btn.active{border-color:var(--primary);border-left:3px solid var(--primary);background:rgba(253,216,53,0.06)}
+.size-btn .dim{font-size:0.82rem;font-weight:700;display:block}
+.size-btn .size-name{font-size:0.65rem;color:var(--text-light);display:block;margin:0.15rem 0}
+.size-btn .size-price{font-size:0.78rem;font-weight:700;color:var(--primary-dark);display:block}
+.orientation-options{display:flex;gap:0.5rem}
+.orient-btn{flex:1;padding:0.7rem;border:1.5px solid var(--surface-3);border-radius:var(--radius);text-align:center;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.82rem;background:var(--bg)}
+.orient-btn:hover{border-color:var(--primary)}
+.orient-btn.active{border-color:var(--primary);background:rgba(253,216,53,0.06)}
+.orient-icon-portrait{width:14px;height:20px;border:1.5px solid currentColor;border-radius:2px}
+.orient-icon-landscape{width:20px;height:14px;border:1.5px solid currentColor;border-radius:2px}
+.color-options{display:flex;gap:1.2rem}
+.color-option{text-align:center}
+.color-swatch{width:40px;height:40px;border-radius:50%;cursor:pointer;transition:var(--transition);position:relative;display:flex;align-items:center;justify-content:center}
+.color-swatch:hover{transform:scale(1.08)}
+.color-swatch.active::after{content:'';position:absolute;inset:-4px;border:1.5px solid var(--primary);border-radius:50%}
+.color-swatch .check{display:none;font-size:0.7rem}
+.color-swatch.active .check{display:block}
+.swatch-black{background:var(--black-frame)}
+.swatch-black .check{color:#fff}
+.swatch-white{background:var(--white-frame);box-shadow:inset 0 0 0 1px var(--surface-3)}
+.swatch-white .check{color:var(--text)}
+.swatch-natural{background:var(--natural-frame)}
+.swatch-natural .check{color:#fff}
+.color-label{font-size:0.65rem;color:var(--text-light);margin-top:0.3rem}
+.font-options{display:grid;grid-template-columns:repeat(2,1fr);gap:0.4rem}
+.font-btn{padding:0.55rem 0.6rem;border:1.5px solid var(--surface-3);border-radius:var(--radius);cursor:pointer;transition:var(--transition);font-size:0.85rem;text-align:center;background:var(--bg)}
+.font-btn:hover{border-color:var(--primary)}
+.font-btn.active{border-color:var(--primary);background:rgba(253,216,53,0.08)}
+.text-input-group{margin-bottom:0.6rem}
+.text-input-wrapper input{width:100%;padding:0.65rem 1rem;border:1.5px solid var(--surface-3);border-radius:var(--radius);font-size:0.85rem;background:var(--bg);color:var(--text);transition:var(--transition)}
+.text-input-wrapper input:focus{outline:none;border-color:var(--primary);background:var(--white)}
+.char-counter{font-size:0.65rem;color:var(--text-light);text-align:right;margin-top:0.2rem}
+.text-optional{font-size:0.72rem;color:var(--text-light);font-style:italic;margin-top:0.3rem}
+.upload-zone{border:1.5px dashed var(--surface-3);border-radius:var(--radius);padding:2rem;text-align:center;cursor:pointer;transition:var(--transition);background:var(--bg)}
+.upload-zone:hover{border-color:var(--primary);background:rgba(253,216,53,0.03)}
+.upload-zone svg{margin-bottom:0.6rem;stroke:var(--text-light);fill:none}
+.upload-zone p{font-size:0.82rem;color:var(--text-light);margin-bottom:0.2rem}
+.upload-zone .upload-hint{font-size:0.68rem;color:var(--surface-3)}
+.upload-preview img{max-height:140px;border-radius:var(--radius);margin:0 auto}
+.upload-actions{display:flex;gap:0.5rem;justify-content:center;margin-top:0.6rem}
+.upload-actions button{padding:0.35rem 0.9rem;border-radius:var(--radius);font-size:0.72rem;font-weight:600;transition:var(--transition)}
+.btn-crop{background:var(--primary);color:var(--dark)}
+.btn-reupload{background:var(--surface-2);color:var(--text)}
+.btn-add-cart{width:100%;padding:0.95rem;background:var(--primary);color:var(--dark);border-radius:var(--radius);font-size:0.95rem;font-weight:700;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1.5rem}
+.btn-add-cart:hover{background:var(--primary-hover);transform:translateY(-1px)}
+.cart-reassurance{text-align:center;margin-top:0.7rem}
+.cart-reassurance p{font-size:0.7rem;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:0.3rem;margin-bottom:0.15rem}
+.cart-reassurance svg{width:12px;height:12px;stroke:var(--text-light);fill:none;stroke-width:1.5}
+.pdp-description{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--surface-2)}
+.pdp-desc-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;width:100%;font-size:0.85rem;font-weight:700;color:var(--text);padding:0.4rem 0}
+.pdp-desc-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.pdp-desc-content.open{max-height:500px}
+.pdp-desc-content p{font-size:0.82rem;color:var(--text-light);line-height:1.7;padding:0.5rem 0 1rem}
+
+/* Crop overlay */
+.crop-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:3000;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:2rem}
+.crop-overlay.active{display:flex}
+.crop-container{max-width:600px;max-height:500px}
+.crop-container img{max-width:100%;max-height:500px;border-radius:var(--radius)}
+.crop-actions{display:flex;gap:0.75rem}
+.crop-actions button{padding:0.65rem 1.4rem;border-radius:var(--radius);font-weight:700;font-size:0.82rem}
+.btn-confirm-crop{background:var(--primary);color:var(--dark)}
+.btn-cancel-crop{background:rgba(255,255,255,0.15);color:white}
+
+/* Customize Your Own section */
+.customize-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.customize-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:var(--transition);box-shadow:var(--shadow-card)}
+.customize-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,44,40,0.12)}
+.customize-card-img{height:220px;overflow:hidden}
+.customize-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.customize-card:hover .customize-card-img img{transform:scale(1.04)}
+.customize-card-body{padding:1.4rem}
+.customize-card-body h3{font-size:1rem;font-weight:700;margin-bottom:0.3rem}
+.customize-card-body p{font-size:0.78rem;color:var(--text-light);line-height:1.5;margin-bottom:1rem}
+.customize-card-cta{font-size:0.78rem;font-weight:700;color:var(--primary-dark);display:inline-flex;align-items:center;gap:0.3rem}
+
+/* Metal Preview */
+.metal-preview{transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.metal-preview.size-8x10{width:240px}
+.metal-preview.size-11x14{width:300px}
+.metal-preview.size-12x16{width:340px}
+.metal-surface{background:linear-gradient(135deg,#d4d4d4 0%,#f5f5f5 20%,#c0c0c0 40%,#e8e8e8 60%,#d0d0d0 80%,#f0f0f0 100%);border-radius:4px;padding:8px;position:relative;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.metal-surface::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,0.3) 0%,transparent 40%,transparent 60%,rgba(255,255,255,0.1) 100%);border-radius:4px;pointer-events:none}
+.metal-preview.portrait .metal-image-area{aspect-ratio:4/5}
+.metal-preview.landscape .metal-image-area{aspect-ratio:5/4}
+.metal-image-area{width:100%;overflow:hidden;background:var(--surface-2);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;border-radius:2px}
+.metal-image-area img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;opacity:0.92}
+.metal-no-frame .metal-surface{box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.metal-black-frame .metal-surface{border:4px solid #1a1a1a;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+.metal-white-frame .metal-surface{border:4px solid #f5f0e6;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+.metal-natural-frame .metal-surface{border:4px solid #b8956a;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+
+/* Desktop Photo Glass Effect */
+.dp-glass-plaque{position:relative;border-radius:16px;padding:1.5rem;width:280px;min-height:340px;background:linear-gradient(135deg,rgba(255,255,255,0.5) 0%,rgba(240,248,255,0.85) 20%,rgba(255,255,255,0.35) 45%,rgba(240,248,255,0.8) 70%,rgba(255,255,255,0.45) 100%);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,0.6);box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 8px 32px rgba(0,0,0,0.08)}
+.dp-glass-plaque::before{content:'';position:absolute;top:8px;left:12px;width:45%;height:35%;background:radial-gradient(ellipse,rgba(255,255,255,0.7) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.dp-glass-glow{box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 0 30px rgba(255,200,100,0.35),0 8px 32px rgba(0,0,0,0.08)}
+.dp-glass-glow-color{box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 0 30px rgba(120,180,255,0.3),0 8px 32px rgba(0,0,0,0.08)}
+
+/* Text input with apply button */
+.text-input-apply{display:flex;gap:0;align-items:stretch}
+.text-input-apply input{flex:1;border-top-right-radius:0!important;border-bottom-right-radius:0!important;border-right:none!important}
+.text-input-apply .btn-apply-text{padding:0 0.7rem;background:var(--primary);color:var(--dark);border:1.5px solid var(--primary);border-radius:0 var(--radius) var(--radius) 0;font-size:0.7rem;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap;display:flex;align-items:center}
+.text-input-apply .btn-apply-text:hover{background:var(--primary-hover)}
+
+/* Crop tool enhanced */
+.crop-workspace{position:relative;max-width:600px;max-height:450px;overflow:hidden;background:#111;border-radius:var(--radius)}
+.crop-workspace canvas{display:block;max-width:100%;max-height:450px}
+.crop-selection{position:absolute;border:2px solid rgba(255,255,255,0.9);box-shadow:0 0 0 9999px rgba(0,0,0,0.5);cursor:move;min-width:50px;min-height:50px}
+.crop-selection::before{content:'';position:absolute;inset:0;border:1px dashed rgba(255,255,255,0.4)}
+.crop-handle{position:absolute;width:12px;height:12px;background:var(--primary);border:2px solid white;border-radius:2px}
+.crop-handle.tl{top:-6px;left:-6px;cursor:nw-resize}
+.crop-handle.tr{top:-6px;right:-6px;cursor:ne-resize}
+.crop-handle.bl{bottom:-6px;left:-6px;cursor:sw-resize}
+.crop-handle.br{bottom:-6px;right:-6px;cursor:se-resize}
+.crop-header{color:white;font-size:1.1rem;font-weight:700;letter-spacing:0.02em}
+.crop-controls{display:flex;gap:0.5rem}
+.crop-controls button{padding:0.45rem 1rem;border-radius:var(--radius);font-weight:700;font-size:0.78rem;background:rgba(255,255,255,0.15);color:white;cursor:pointer;transition:var(--transition)}
+.crop-controls button:hover{background:rgba(255,255,255,0.25)}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--dark);color:var(--text-on-dark);padding:0.9rem 1.8rem;border-radius:var(--radius);font-size:0.85rem;font-weight:600;z-index:5000;transform:translateY(100px);opacity:0;transition:var(--transition)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-text{padding:3rem 2rem}
+  .hero-img{height:50vh}
+  .pdp-grid{grid-template-columns:1fr}
+  .pdp-preview-col{position:static}
+  .editorial-inner{grid-template-columns:1fr}
+  .editorial-img{height:300px}
+  .customize-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .container{padding:0 1.25rem}
+  .section{padding:4rem 0}
+  .section-title{font-size:1.7rem}
+  .hero h1{font-size:2.2rem}
+  .collections-grid{grid-template-columns:repeat(2,1fr)}
+  .hiw-steps{grid-template-columns:1fr;gap:1.5rem}
+  .hiw-connector,.hiw-connector-2{display:none}
+  .reviews-grid{grid-template-columns:1fr}
+  .spotlight-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-items{gap:1.2rem}
+  .email-form{flex-direction:column}
+  .size-options{flex-direction:column}
+  .font-options{grid-template-columns:1fr}
+  .frame-preview.size-8x10{width:200px}
+  .frame-preview.size-11x14{width:240px}
+  .frame-preview.size-12x16{width:280px}
+  .live-preview-container{min-height:380px;padding:2rem}
+}
+@media(max-width:480px){
+  .collections-grid{grid-template-columns:1fr}
+  .hero h1{font-size:1.8rem}
+  .announcement-bar{font-size:0.6rem;letter-spacing:0.08em}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  Free Shipping on Orders Over $99 &middot; Handcrafted in the USA &middot; Each Piece Made to Order
+</div>
+
+<!-- 2. NAVIGATION -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="#/" class="nav-logo"><img src="TMP_Horizontal.webp" alt="Treasured Moments Photos" width="170px">  </a>
+    <ul class="nav-links">
+      <li><a href="#/">Shop All</a></li>
+      <li><a href="#/">Shadow Box</a>
+        <div class="nav-dropdown">
+          <a href="#/product/shadow-box">Custom Shadow Box</a>
+          <a href="#/product/shadow-box">Missionary Shadow Box</a>
+          <a href="#/product/shadow-box">Sports Shadow Box</a>
+          <a href="#/product/shadow-box">Temple Shadow Box</a>
+        </div>
+      </li>
+      <li><a href="#/">Canvas &amp; Metal</a>
+        <div class="nav-dropdown">
+          <a href="#/">Canvas Photo</a>
+          <a href="#/">Metal Photo</a>
+          <a href="#/">Temple Canvas</a>
+          <a href="#/">Missionary Flag Canvas</a>
+        </div>
+      </li>
+      <li><a href="#/">Wood &amp; Plaques</a>
+        <div class="nav-dropdown">
+          <a href="#/">Wood Photo</a>
+          <a href="#/">Missionary Plaque</a>
+          <a href="#/">Temple Wood</a>
+          <a href="#/">Sports Plaque</a>
+        </div>
+      </li>
+      <li><a href="#/product/desktop-photo">Desktop &amp; Lights</a>
+        <div class="nav-dropdown">
+          <a href="#/product/desktop-photo">Desktop Photo (10 Styles)</a>
+          <a href="#/">Missionary Desktop</a>
+          <a href="#/">Night Light Photo</a>
+          <a href="#/">Temple Night Light</a>
+        </div>
+      </li>
+      <li><a href="#/">Puzzles &amp; More</a>
+        <div class="nav-dropdown">
+          <a href="#/">Puzzle Photo</a>
+          <a href="#/">Crystal Clear Photo</a>
+          <a href="#/">Retro Vinyl</a>
+          <a href="#/">Wind Spinner</a>
+        </div>
+      </li>
+      <li><a href="#/">Collections</a></li>
+    </ul>
+    <div class="nav-icons">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="cart-badge">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('active')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <ul>
+    <li><a href="#/" onclick="closeMobile()">Shop All</a></li>
+    <li><a href="#/product/shadow-box" onclick="closeMobile()">Shadow Box</a></li>
+    <li><a href="#/" onclick="closeMobile()">Canvas &amp; Metal</a></li>
+    <li><a href="#/" onclick="closeMobile()">Wood &amp; Plaques</a></li>
+    <li><a href="#/product/desktop-photo" onclick="closeMobile()">Desktop &amp; Lights</a></li>
+    <li><a href="#/" onclick="closeMobile()">Puzzles &amp; More</a></li>
+    <li><a href="#/" onclick="closeMobile()">Collections</a></li>
+  </ul>
+</div>
+
+<!-- MAIN -->
+<main id="pageContainer"></main>
+
+<!-- FOOTER -->
+<footer class="main-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#/product/shadow-box">Shadow Box</a></li>
+          <li><a href="#/">Canvas</a></li>
+          <li><a href="#/">Metal</a></li>
+          <li><a href="#/">Wood</a></li>
+          <li><a href="#/product/desktop-photo">Desktop</a></li>
+          <li><a href="#/">Puzzles</a></li>
+          <li><a href="#/">All Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="#/">Missionary</a></li>
+          <li><a href="#/">Temple</a></li>
+          <li><a href="#/">Sports</a></li>
+          <li><a href="#/">Mom &amp; Dad</a></li>
+          <li><a href="#/">Night Lights</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#/">FAQ</a></li>
+          <li><a href="#/">Shipping &amp; Returns</a></li>
+          <li><a href="#/">Contact Us</a></li>
+          <li><a href="#/">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#/">About Us</a></li>
+          <li><a href="#/">Our Story</a></li>
+          <li><a href="#/">Privacy Policy</a></li>
+          <li><a href="#/">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Treasured Moments Photos. All rights reserved.</p>
+      <div class="footer-payments">
+        <span>Visa</span><span>MC</span><span>Amex</span><span>PayPal</span><span>Shop Pay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CROP OVERLAY -->
+<div class="crop-overlay" id="cropOverlay">
+  <div class="crop-header">Crop Your Photo</div>
+  <div class="crop-workspace" id="cropWorkspace">
+    <canvas id="cropCanvas"></canvas>
+    <div class="crop-selection" id="cropSelection" style="display:none">
+      <div class="crop-handle tl" data-handle="tl"></div>
+      <div class="crop-handle tr" data-handle="tr"></div>
+      <div class="crop-handle bl" data-handle="bl"></div>
+      <div class="crop-handle br" data-handle="br"></div>
+    </div>
+  </div>
+  <div class="crop-controls">
+    <button onclick="resetCrop()">Reset</button>
+  </div>
+  <div class="crop-actions">
+    <button class="btn-confirm-crop" onclick="confirmCrop()">Apply Crop</button>
+    <button class="btn-cancel-crop" onclick="cancelCrop()">Cancel</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== SVG ICON HELPERS =====
+const icons = {
+  star: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  flag: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  palette: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>',
+  gift: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>',
+  upload: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+  image: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>',
+  lock: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  check: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+  chevron: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>',
+  arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  handcraft: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  shield: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  truck: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+};
+
+const starRow = (count=5) => Array(count).fill(icons.star).join('');
+
+// ===== IMAGE URLS (Unsplash / Picsum fallback) =====
+const img = {
+  hero: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&h=1100&fit=crop&q=80',
+  colShadow: 'assests/Shadow box 1.jpeg',
+  colShadowHover: 'assests/Shadow box 2.jpeg',
+  colCanvas: 'assests/canvas angle 2.jpeg',
+  colCanvasHover: 'assests/canvas living room.jpeg',
+  colWood: 'assests/Acrylic frame.webp',
+  colWoodHover: 'assests/living room acrylic.jpeg',
+  colNight: 'assests/3 people acrylic.webp',
+  colNightHover: 'assests/living room acrylic.jpeg',
+  colMissionary: 'assests/temple live setting.jpeg',
+  colMissionaryHover: 'assests/missionary pic.webp',
+  colTemple: 'assests/temple live setting.jpeg',
+  colTempleHover: 'assests/Shadow box 2.jpeg',
+  editorial: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&h=600&fit=crop&q=80',
+  workshop: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1400&h=400&fit=crop&q=80',
+  prodShadow: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&h=400&fit=crop&q=80',
+  prodNight: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=400&fit=crop&q=80',
+  prodCanvas: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop&q=80',
+  prodTemple: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=400&h=400&fit=crop&q=80',
+  prodMissionary: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop&q=80',
+  prodPuzzle: 'https://images.unsplash.com/photo-1494059980473-813e73ee784b?w=400&h=400&fit=crop&q=80',
+  spotMissionary: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=500&fit=crop&q=80',
+  spotTemple: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=500&fit=crop&q=80',
+  familyPortrait: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=750&fit=crop&q=80',
+  couplePortrait: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=750&h=600&fit=crop&q=80'
+};
+
+// ===== STATE =====
+const state = {
+  size:'11x14', orientation:'portrait', frameColor:'black', font:'Arial',
+  line1:'', line2:'', photo:null, croppedPhoto:null,
+  dpStyle:1, dpWood:'beech', dpLight:'warm', dpFont:'Arial', dpText1:'', dpText2:'', dpPhotos:{},
+  metalSize:'11x14', metalOrientation:'portrait', metalEffect:'flat',
+  metalFrame:'none', metalPhoto:null, metalCroppedPhoto:null,
+  cropTarget:null
+};
+const prices = {'8x10':59.99,'11x14':79.99,'12x16':99.99};
+const metalPrices = {'8x10':69.99,'11x14':89.99,'12x16':109.99};
+const effectLabels = {'flat':'Flat','raised':'Raised Texture','3d':'3D Texture'};
+const sizeLabels = {'8x10':'8" \u00d7 10"','11x14':'11" \u00d7 14"','12x16':'12" \u00d7 16"'};
+const sizeNames = {'8x10':'Small','11x14':'Medium','12x16':'Large'};
+const fontMap = {
+  'Arial':'Arial, sans-serif',
+  'Breesh':"'Pacifico', cursive",
+  'Dalena':"'Playfair Display', serif",
+  'Fabitha Script':"'Dancing Script', cursive",
+  'Times New Roman':"'Times New Roman', serif",
+  'Twinkle Magic':"'Lobster', cursive"
+};
+
+// ===== ROUTER =====
+function route(){
+  const hash = window.location.hash || '#/';
+  const c = document.getElementById('pageContainer');
+  if(hash.startsWith('#/product/shadow-box')){c.innerHTML=renderShadowBoxPDP();initCustomizer();}
+  else if(hash.startsWith('#/product/desktop-photo')){c.innerHTML=renderDesktopPDP();initDesktopCustomizer();}
+  else if(hash.startsWith('#/product/metal-print')){c.innerHTML=renderMetalPDP();initMetalCustomizer();}
+  else{c.innerHTML=renderHomepage();}
+  window.scrollTo(0,0);
+  setTimeout(initScrollAnimations,100);
+}
+window.addEventListener('hashchange',route);
+window.addEventListener('DOMContentLoaded',route);
+function closeMobile(){document.getElementById('mobileMenu').classList.remove('active')}
+
+// ===== SCROLL ANIMATIONS =====
+function initScrollAnimations(){
+  const els=document.querySelectorAll('.fade-in,.fade-in-child');
+  if(!els.length) return;
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.15});
+  els.forEach(el=>obs.observe(el));
+}
+
+// ===== HOMEPAGE =====
+function renderHomepage(){
+  const collections = [
+    {name:'Shadow Box Collection',desc:'3D layered photo art',img1:img.colShadow,img2:img.colShadowHover,link:'#/product/shadow-box'},
+    {name:'Canvas & Metal Prints',desc:'Gallery-quality wall art',img1:img.colCanvas,img2:img.colCanvasHover,link:'#/'},
+    {name:'Wood Photo Art',desc:'Natural grain meets your memories',img1:img.colWood,img2:img.colWoodHover,link:'#/'},
+    {name:'Desktop & Night Lights',desc:'Illuminated photo displays',img1:img.colNight,img2:img.colNightHover,link:'#/product/desktop-photo'},
+    {name:'Missionary Collection',desc:'Honor their service',img1:img.colMissionary,img2:img.colMissionaryHover,link:'#/'},
+    {name:'Temple Collection',desc:'Sacred spaces, lasting art',img1:img.colTemple,img2:img.colTempleHover,link:'#/'}
+  ];
+  const products = [
+    {name:'Custom Shadow Box',price:59.99,img:img.prodShadow,link:'#/product/shadow-box'},
+    {name:'Desktop Photo Night Light',price:44.99,img:img.prodNight,link:'#/product/desktop-photo'},
+    {name:'Canvas Photo Print',price:49.99,img:img.prodCanvas,link:'#/'},
+    {name:'Temple Shadow Box',price:59.99,img:img.prodTemple,link:'#/product/shadow-box'},
+    {name:'Missionary Photo Plaque',price:54.99,img:img.prodMissionary,link:'#/'},
+    {name:'Puzzle Photo',price:34.99,img:img.prodPuzzle,link:'#/'}
+  ];
+  return `
+  <!-- 3. HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="label-sm">Custom Photo Art</span>
+      <h1>Your Photographs, Transformed Into Heirloom Art</h1>
+      <p>Shadow boxes, canvas prints, illuminated displays &mdash; each piece handcrafted from your most treasured moments.</p>
+      <div class="hero-ctas">
+        <a href="#/product/shadow-box" class="btn-primary">Shop Shadow Boxes ${icons.arrow}</a>
+        <a href="#hiw" class="btn-text">See How It Works ${icons.arrow}</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="${img.hero}" alt="Gallery wall with custom shadow box frames in a sunlit living room">
+    </div>
+  </section>
+
+  <!-- 4. TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-items">
+      <div class="trust-item">${icons.star} 4.9 Stars &middot; 2,400+ Reviews</div>
+      <div class="trust-item">${icons.flag} Handcrafted in the USA</div>
+      <div class="trust-item">${icons.palette} UV Printed &middot; 1,440 Colors</div>
+      <div class="trust-item">${icons.gift} Perfect Personalized Gifts</div>
+    </div>
+  </div>
+
+  <!-- 4b. CUSTOMIZE YOUR OWN -->
+  <section class="section" style="padding-bottom:2rem">
+    <div class="container">
+      <div style="text-align:center" class="fade-in">
+        <span class="label-sm">Design It Your Way</span>
+        <h2 class="section-title">Customize Your Own</h2>
+        <p class="section-subtitle">Choose a product and make it uniquely yours with our live customizer</p>
+      </div>
+      <div class="customize-grid fade-in-child">
+        <a href="#/product/shadow-box" class="customize-card">
+          <div class="customize-card-img"><img src="${img.colShadow}" alt="Custom Shadow Box"></div>
+          <div class="customize-card-body">
+            <h3>Shadow Box Photo Frame</h3>
+            <p>3D layered photo art with custom text. Choose your size, frame color, and font to create a keepsakes.</p>
+            <span class="customize-card-cta">Start Customizing ${icons.arrow}</span>
+          </div>
+        </a>
+        <a href="#/product/desktop-photo" class="customize-card">
+          <div class="customize-card-img"><img src="${img.colNight}" alt="Desktop Photo Night Light"></div>
+          <div class="customize-card-body">
+            <h3>Desktop Photo Night Light</h3>
+            <p>Illuminated acrylic plaque with warm glow. Pick your style, upload photos, and add personalized text.</p>
+            <span class="customize-card-cta">Start Customizing ${icons.arrow}</span>
+          </div>
+        </a>
+        <a href="#/product/metal-print" class="customize-card">
+          <div class="customize-card-img"><img src="${img.colCanvas}" alt="Metal Canvas Print"></div>
+          <div class="customize-card-body">
+            <h3>Metal Canvas Print</h3>
+            <p>Vivid, durable metal prints with texture finishes. Choose flat, raised, or 3D texture for lasting brilliance.</p>
+            <span class="customize-card-cta">Start Customizing ${icons.arrow}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. COLLECTIONS -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center" class="fade-in">
+        <span class="label-sm">Explore Our Collections</span>
+        <h2 class="section-title">Shop By Category</h2>
+        <p class="section-subtitle" style="margin-bottom:0">Discover the perfect way to preserve your memories</p>
+      </div>
+      <div class="collections-grid fade-in-child">
+        ${collections.map(c=>`
+          <a href="${c.link}" class="collection-card">
+            <div class="collection-card-img">
+              <img class="img-primary" src="${c.img1}" alt="${c.name}">
+              <img class="img-hover" src="${c.img2}" alt="${c.name} detail">
+            </div>
+            <div class="collection-card-text">
+              <h3>${c.name}</h3>
+              <p>${c.desc}</p>
+            </div>
+          </a>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. EDITORIAL BAND -->
+  <section class="editorial-band">
+    <div class="editorial-inner">
+      <div class="editorial-img">
+        <img src="${img.editorial}" alt="Craftsman assembling a shadow box frame">
+      </div>
+      <div class="editorial-text fade-in">
+        <span class="label-sm">The Process</span>
+        <h2>Where Craft Meets Technology</h2>
+        <p>Using precision laser-cutting and UV printing technology capable of reproducing 1,440 vivid colors, we transform your photographs into museum-quality art pieces. Every shadow box, canvas, and display is assembled by hand in our workshop.</p>
+        <a href="#/" class="link-arrow">Learn Our Story ${icons.arrow}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. HOW IT WORKS -->
+  <section class="section" id="hiw" style="background:var(--white)">
+    <div class="container">
+      <div style="text-align:center" class="fade-in">
+        <span class="label-sm">Simple Process</span>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to your custom photo art</p>
+      </div>
+      <div class="hiw-steps fade-in-child">
+        <div class="hiw-connector"></div>
+        <div class="hiw-connector hiw-connector-2"></div>
+        <div class="hiw-step">
+          <div class="hiw-num">1</div>
+          <h3>Choose Your Product</h3>
+          <p>Shadow boxes, canvas, metal, wood, desktop displays, and more.</p>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-num">2</div>
+          <h3>Upload &amp; Personalize</h3>
+          <p>Add your photos, select your size and frame, add custom text.</p>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-num">3</div>
+          <h3>We Craft &amp; Ship</h3>
+          <p>Handcrafted in our workshop and shipped to your door.</p>
+        </div>
+      </div>
+      <div class="hiw-strip fade-in">
+        <img src="${img.workshop}" alt="Workshop with shadow box frames in various stages of assembly">
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. BESTSELLERS -->
+  <section class="section">
+    <div class="container">
+      <div class="fade-in">
+        <span class="label-sm">Top Picks</span>
+        <h2 class="section-title">Customer Favorites</h2>
+        <p class="section-subtitle" style="margin-bottom:2rem">Our most loved custom photo products</p>
+      </div>
+      <div class="products-scroll fade-in-child">
+        ${products.map(p=>`
+          <a href="${p.link}" class="product-card">
+            <div class="product-card-img">
+              <img src="${p.img}" alt="${p.name}">
+              <div class="product-card-overlay"><span>Customize Now</span></div>
+            </div>
+            <div class="product-card-body">
+              <h3>${p.name}</h3>
+              <div class="product-card-rating">${starRow()} (4.9)</div>
+              <div class="product-card-price">From $${p.price.toFixed(2)}</div>
+            </div>
+          </a>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. SPOTLIGHT -->
+  <section class="section" style="background:var(--surface-1)">
+    <div class="container">
+      <div style="text-align:center" class="fade-in">
+        <span class="label-sm">Featured Collections</span>
+        <h2 class="section-title">For Missionaries &amp; Temple Lovers</h2>
+        <p class="section-subtitle" style="margin-bottom:0">Celebrate faith, service, and sacred moments</p>
+      </div>
+      <div class="spotlight-grid fade-in-child">
+        <a href="#/" class="spotlight-card">
+          <img src="${img.spotMissionary}" alt="Missionary collection">
+          <div class="spotlight-content">
+            <span class="label-sm">Collection</span>
+            <h3>For Missionaries</h3>
+            <p>Honor their mission with custom shadow boxes, photo plaques, and desktop displays.</p>
+            <span class="btn-primary">Shop Missionary</span>
+          </div>
+        </a>
+        <a href="#/" class="spotlight-card">
+          <img src="${img.spotTemple}" alt="Temple collection">
+          <div class="spotlight-content">
+            <span class="label-sm">Collection</span>
+            <h3>For Temple Lovers</h3>
+            <p>Capture the light and beauty of your favorite temple on canvas, wood, metal, and more.</p>
+            <span class="btn-primary">Shop Temple</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. REVIEWS -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center" class="fade-in">
+        <span class="label-sm">Testimonials</span>
+        <h2 class="section-title">What Our Customers Say</h2>
+      </div>
+      <div class="reviews-grid fade-in-child">
+        ${[
+          ['"The shadow box of our family reunion is absolutely stunning. The 3D effect brings the photo to life."','Sarah M.','Custom Shadow Box'],
+          ['"We ordered a missionary plaque for our son and it exceeded every expectation. Beautiful craftsmanship."','David & Lisa R.','Missionary Photo Plaque'],
+          ['"The desktop night light is gorgeous. The glow makes my favorite photo look even more magical."','Jennifer K.','Desktop Photo Night Light']
+        ].map(([text,author,prod])=>`
+          <div class="review-card">
+            <div class="review-stars">${starRow()}</div>
+            <div class="review-text">${text}</div>
+            <div class="review-author"><strong>${author}</strong> &mdash; ${prod}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. EMAIL CAPTURE -->
+  <section class="section" style="background:var(--surface-1)">
+    <div class="container">
+      <div class="email-capture fade-in">
+        <h2>Stay in the Loop</h2>
+        <p>Get 10% off your first order + be the first to see new products</p>
+        <div class="email-form">
+          <input type="email" placeholder="Enter your email address">
+          <button onclick="this.textContent='Thank You!';this.style.background='var(--dark)';this.style.color='var(--primary)'">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+// ===== SHADOW BOX PDP =====
+function renderShadowBoxPDP(){
+  const p=prices[state.size];
+  return `
+  <div class="pdp">
+    <div class="container">
+      <div class="pdp-breadcrumb"><a href="#/">Home</a> / <a href="#/">Shadow Box</a> / Custom Shadow Box</div>
+      <div class="pdp-grid">
+        <div class="pdp-preview-col">
+          <div class="live-preview-container">
+            <div class="frame-preview ${state.orientation} size-${state.size}" id="framePreview">
+              <div class="frame-outer ${state.frameColor}-frame" id="frameOuter">
+                <div class="frame-mat">
+                  <div class="frame-image-area" id="frameImageArea">
+                    ${state.photo ? `<img src="${state.photo}" alt="Your photo">` :
+                    `<img src="${state.orientation==='landscape'?img.couplePortrait:img.familyPortrait}" alt="Sample photo" id="defaultPhoto">`}
+                  </div>
+                  <div class="frame-text-area" id="frameTextArea">
+                    <div class="frame-text-line" id="previewLine1" style="font-family:${fontMap[state.font]}">${state.line1}</div>
+                    <div class="frame-text-line" id="previewLine2" style="font-family:${fontMap[state.font]}">${state.line2}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-size-label" id="previewSizeLabel">${sizeLabels[state.size]} &mdash; ${state.orientation.charAt(0).toUpperCase()+state.orientation.slice(1)}</div>
+          <div class="trust-badges-row">
+            <div class="trust-badge-item">${icons.handcraft} Handcrafted in USA</div>
+            <div class="trust-badge-item">${icons.palette} 1,440 Colors</div>
+            <div class="trust-badge-item">${icons.shield} Satisfaction Guaranteed</div>
+            <div class="trust-badge-item">${icons.truck} Free Shipping $99+</div>
+          </div>
+        </div>
+        <div>
+          <div class="customizer-panel">
+            <div class="customizer-header">
+              <h1>Custom Shadow Box Photo Frame</h1>
+              <div class="tagline">Make Your Memories Stand Out in 3D</div>
+              <div class="price"><span class="price-from">From </span>$<span id="displayPrice">${p.toFixed(2)}</span></div>
+              <div class="rating">${starRow()} <span style="margin-left:2px">(4.9)</span> <span>&mdash; 127 Reviews</span></div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">1</span> Choose Your Size</div>
+              <div class="size-options">
+                ${Object.entries(prices).map(([k,v])=>`
+                  <div class="size-btn ${state.size===k?'active':''}" onclick="selectSize('${k}')">
+                    <span class="dim">${sizeLabels[k]}</span>
+                    <span class="size-name">${sizeNames[k]}</span>
+                    <span class="size-price">$${v.toFixed(2)}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">2</span> Select Orientation</div>
+              <div class="orientation-options">
+                <div class="orient-btn ${state.orientation==='portrait'?'active':''}" onclick="selectOrientation('portrait')"><div class="orient-icon-portrait"></div> Portrait</div>
+                <div class="orient-btn ${state.orientation==='landscape'?'active':''}" onclick="selectOrientation('landscape')"><div class="orient-icon-landscape"></div> Landscape</div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">3</span> Pick Your Frame Color</div>
+              <div class="color-options">
+                <div class="color-option">
+                  <div class="color-swatch swatch-black ${state.frameColor==='black'?'active':''}" onclick="selectFrameColor('black')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">Black</div>
+                </div>
+                <div class="color-option">
+                  <div class="color-swatch swatch-white ${state.frameColor==='white'?'active':''}" onclick="selectFrameColor('white')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">White</div>
+                </div>
+                <div class="color-option">
+                  <div class="color-swatch swatch-natural ${state.frameColor==='natural'?'active':''}" onclick="selectFrameColor('natural')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">Natural</div>
+                </div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">4</span> Choose Your Text Font</div>
+              <div class="font-options">
+                ${Object.entries(fontMap).map(([n,f])=>`
+                  <div class="font-btn ${state.font===n?'active':''}" style="font-family:${f}" onclick="selectFont('${n}')">${n}</div>`).join('')}
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">5</span> Add Personalized Text</div>
+              <div class="text-input-group">
+                <div class="text-input-wrapper"><input type="text" maxlength="25" placeholder="Line 1 (up to 25 characters)" id="textLine1" value="${state.line1}" oninput="updateText(1,this.value)"></div>
+                <div class="char-counter"><span id="charCount1">${state.line1.length}</span>/25</div>
+              </div>
+              <div class="text-input-group">
+                <div class="text-input-wrapper"><input type="text" maxlength="25" placeholder="Line 2 (up to 25 characters)" id="textLine2" value="${state.line2}" oninput="updateText(2,this.value)"></div>
+                <div class="char-counter"><span id="charCount2">${state.line2.length}</span>/25</div>
+              </div>
+              <div class="text-optional">Optional &mdash; leave blank if no text desired</div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">6</span> Upload Your Photo</div>
+              <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <div id="uploadContent">
+                  ${icons.upload}
+                  <p>Drag &amp; drop your photo here or click to browse</p>
+                  <div class="upload-hint">JPEG, PNG &mdash; minimum 2000px wide recommended</div>
+                </div>
+              </div>
+              <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
+            </div>
+            <button class="btn-add-cart" onclick="addToCart()">Add to Cart &mdash; $<span id="cartPrice">${p.toFixed(2)}</span></button>
+            <div class="cart-reassurance">
+              <p>${icons.lock} Secure Checkout</p>
+              <p>We'll send a digital proof for your approval before production</p>
+            </div>
+            <div class="pdp-description">
+              <button class="pdp-desc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.chev').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''">Product Description <span class="chev" style="transition:transform 0.3s;display:inline-block">${icons.chevron}</span></button>
+              <div class="pdp-desc-content">
+                <p>Turn your favorite photo into a breathtaking work of art. We carefully separate your subject from the background to create a clean, professional silhouette. Your main image is UV printed in vivid color on precision laser-cut acrylic and mounted at the front of the frame, while the background is printed on the back panel &mdash; creating a layered 3D effect that truly brings your photo to life.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== DESKTOP PHOTO PDP =====
+function renderDesktopPDP(){
+  const styleConfigs=[
+    {id:1,name:'Style 1',photos:1,texts:0,desc:'1 Photo'},
+    {id:2,name:'Style 2',photos:4,texts:2,desc:'4 Photos + 2 Text'},
+    {id:3,name:'Style 3',photos:1,texts:2,desc:'1 Photo + Song'},
+    {id:4,name:'Style 4',photos:3,texts:1,desc:'3 Photos + Text'},
+    {id:5,name:'Style 5',photos:6,texts:1,desc:'6 Photos + Text'},
+    {id:6,name:'Style 6',photos:8,texts:1,desc:'8 Photos + Text'},
+    {id:7,name:'LOVE',photos:4,texts:1,desc:'4 Photos + Text'},
+    {id:8,name:'Heart',photos:1,texts:1,desc:'1 Photo + Text'},
+    {id:9,name:'Mom/Dad',photos:6,texts:2,desc:'6 Photos + 2 Text'},
+    {id:10,name:'BFF',photos:6,texts:2,desc:'6 Photos + 2 Text'}
+  ];
+  const cfg=styleConfigs.find(s=>s.id===state.dpStyle);
+  const glowClass=state.dpLight==='warm'?' dp-glass-glow':state.dpLight==='color'?' dp-glass-glow-color':'';
+  return `
+  <div class="pdp">
+    <div class="container">
+      <div class="pdp-breadcrumb"><a href="#/">Home</a> / <a href="#/">Desktop &amp; Night Lights</a> / Desktop Photo</div>
+      <div class="pdp-grid">
+        <div class="pdp-preview-col">
+          <div class="live-preview-container" style="flex-direction:column;gap:1rem">
+            <div class="dp-glass-plaque${glowClass}">
+              <div style="display:grid;grid-template-columns:repeat(${cfg.photos<=1?1:cfg.photos<=4?2:3},1fr);gap:6px;margin-bottom:10px">
+                ${Array.from({length:cfg.photos},(_,i)=>`
+                  <div style="aspect-ratio:1;background:${state.dpPhotos[i]?'transparent':'rgba(200,210,220,0.3)'};border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--text-light)">
+                    ${state.dpPhotos[i]?`<img src="${state.dpPhotos[i]}" style="width:100%;height:100%;object-fit:cover">`:`Photo ${i+1}`}
+                  </div>`).join('')}
+              </div>
+              ${cfg.texts>0?`<div style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:1.1rem;color:var(--text);padding:4px 0;font-weight:600">${state.dpText1||'Your text here'}</div>`:''}
+              ${cfg.texts>1?`<div style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:0.9rem;color:var(--text-light);padding:2px 0">${state.dpText2||'Second line'}</div>`:''}
+            </div>
+            <div style="width:110px;height:18px;background:${state.dpWood==='beech'?'linear-gradient(90deg,#d4b896,#e8cba8,#d4b896)':'linear-gradient(90deg,#5c3d2e,#7a5340,#5c3d2e)'};border-radius:4px;box-shadow:0 3px 8px rgba(0,0,0,0.12)"></div>
+          </div>
+          <div class="preview-size-label">~6" \u00d7 8" Portrait &mdash; ${cfg.name}</div>
+        </div>
+        <div>
+          <div class="customizer-panel">
+            <div class="customizer-header">
+              <h1>Desktop Photo Heartfelt Acrylic Plaque Night Light</h1>
+              <div class="tagline">Beautifully feature your favorite photos with warm illumination</div>
+              <div class="price"><span class="price-from">From </span>$44.99</div>
+              <div class="rating">${starRow()} <span style="margin-left:2px">(4.8)</span> <span>&mdash; 89 Reviews</span></div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">1</span> Choose Your Style</div>
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem">
+                ${styleConfigs.map(s=>`
+                  <div class="size-btn ${state.dpStyle===s.id?'active':''}" onclick="selectDPStyle(${s.id})" style="padding:0.45rem 0.2rem">
+                    <span class="dim" style="font-size:0.7rem">${s.name}</span>
+                    <span class="size-name" style="font-size:0.55rem">${s.desc}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">2</span> Choose Wood Base</div>
+              <div class="orientation-options">
+                <div class="orient-btn ${state.dpWood==='beech'?'active':''}" onclick="selectDPWood('beech')">
+                  <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#d4b896,#e8cba8)"></div> Beech
+                </div>
+                <div class="orient-btn ${state.dpWood==='walnut'?'active':''}" onclick="selectDPWood('walnut')">
+                  <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#5c3d2e,#7a5340)"></div> Walnut
+                </div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">3</span> Choose Lighting</div>
+              <div class="size-options">
+                <div class="size-btn ${state.dpLight==='none'?'active':''}" onclick="selectDPLight('none')"><span class="dim" style="font-size:0.82rem">No Light</span></div>
+                <div class="size-btn ${state.dpLight==='warm'?'active':''}" onclick="selectDPLight('warm')"><span class="dim" style="font-size:0.82rem">Warm White</span></div>
+                <div class="size-btn ${state.dpLight==='color'?'active':''}" onclick="selectDPLight('color')"><span class="dim" style="font-size:0.82rem">7-Color LED</span></div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">4</span> Choose Font</div>
+              <div class="font-options">
+                ${Object.entries(fontMap).map(([n,f])=>`
+                  <div class="font-btn ${state.dpFont===n?'active':''}" style="font-family:${f}" onclick="selectDPFont('${n}')">${n}</div>`).join('')}
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">5</span> Add Text</div>
+              <div class="text-input-group">
+                <div class="text-input-apply"><input type="text" maxlength="25" placeholder="Text line 1 (up to 25 chars)" value="${state.dpText1}" onkeydown="if(event.key==='Enter')applyDPText(1,this.value)" style="border-top-right-radius:0;border-bottom-right-radius:0"><button class="btn-apply-text" onclick="applyDPText(1,this.previousElementSibling.value)">Apply</button></div>
+                <div class="char-counter"><span>${state.dpText1.length}</span>/25</div>
+              </div>
+              ${cfg.texts>1?`<div class="text-input-group"><div class="text-input-apply"><input type="text" maxlength="25" placeholder="Text line 2 (up to 25 chars)" value="${state.dpText2}" onkeydown="if(event.key==='Enter')applyDPText(2,this.value)" style="border-top-right-radius:0;border-bottom-right-radius:0"><button class="btn-apply-text" onclick="applyDPText(2,this.previousElementSibling.value)">Apply</button></div><div class="char-counter"><span>${state.dpText2.length}</span>/25</div></div>`:''}
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">6</span> Upload Photos (${cfg.photos})</div>
+              <div style="display:grid;grid-template-columns:repeat(${Math.min(cfg.photos,3)},1fr);gap:0.6rem">
+                ${Array.from({length:cfg.photos},(_,i)=>`
+                  <div class="upload-zone" style="padding:0.8rem" onclick="document.getElementById('dpFile${i}').click()">
+                    ${state.dpPhotos[i]?`<img src="${state.dpPhotos[i]}" style="max-height:70px;border-radius:4px;margin:0 auto"><div style="margin-top:0.3rem"><button class="btn-crop" style="font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:4px" onclick="event.stopPropagation();openCrop('dp-${i}')">Crop</button></div>`:`
+                    <div style="font-size:1.3rem;color:var(--text-light)">+</div>
+                    <div style="font-size:0.65rem;color:var(--text-light)">Photo ${i+1}</div>`}
+                  </div>
+                  <input type="file" id="dpFile${i}" accept="image/*" style="display:none" onchange="handleDPUpload(event,${i})">`).join('')}
+              </div>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart()">Add to Cart &mdash; $44.99</button>
+            <div class="cart-reassurance">
+              <p>${icons.lock} Secure Checkout</p>
+              <p>Includes USB cord and wall plug adapter</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== METAL PRINT PDP =====
+function renderMetalPDP(){
+  const p=metalPrices[state.metalSize];
+  return `
+  <div class="pdp">
+    <div class="container">
+      <div class="pdp-breadcrumb"><a href="#/">Home</a> / <a href="#/">Canvas &amp; Metal</a> / Metal Canvas Print</div>
+      <div class="pdp-grid">
+        <div class="pdp-preview-col">
+          <div class="live-preview-container">
+            <div class="metal-preview ${state.metalOrientation} size-${state.metalSize} metal-${state.metalFrame}-frame" id="metalPreview">
+              <div class="metal-surface" id="metalSurface">
+                <div class="metal-image-area" id="metalImageArea">
+                  ${state.metalPhoto ? `<img src="${state.metalPhoto}" alt="Your photo">` :
+                  `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-light);font-size:0.82rem">Upload your photo</div>`}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-size-label" id="metalSizeLabel">${effectLabels[state.metalEffect]} &mdash; ${sizeLabels[state.metalSize]} ${state.metalOrientation.charAt(0).toUpperCase()+state.metalOrientation.slice(1)}</div>
+          <div class="trust-badges-row">
+            <div class="trust-badge-item">${icons.handcraft} Handcrafted in USA</div>
+            <div class="trust-badge-item">${icons.palette} 1,440 Colors</div>
+            <div class="trust-badge-item">${icons.shield} Satisfaction Guaranteed</div>
+            <div class="trust-badge-item">${icons.truck} Free Shipping $99+</div>
+          </div>
+        </div>
+        <div>
+          <div class="customizer-panel">
+            <div class="customizer-header">
+              <h1>Metal Canvas Print</h1>
+              <div class="tagline">Durable, vivid, and beautifully refined</div>
+              <div class="price"><span class="price-from">From </span>$<span id="metalDisplayPrice">${p.toFixed(2)}</span></div>
+              <div class="rating">${starRow()} <span style="margin-left:2px">(4.8)</span> <span>&mdash; 94 Reviews</span></div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">1</span> Choose Your Size</div>
+              <div class="size-options">
+                ${Object.entries(metalPrices).map(([k,v])=>`
+                  <div class="size-btn ${state.metalSize===k?'active':''}" onclick="selectMetalSize('${k}')">
+                    <span class="dim">${sizeLabels[k]}</span>
+                    <span class="size-name">${sizeNames[k]}</span>
+                    <span class="size-price">$${v.toFixed(2)}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">2</span> Select Orientation</div>
+              <div class="orientation-options">
+                <div class="orient-btn ${state.metalOrientation==='portrait'?'active':''}" onclick="selectMetalOrientation('portrait')"><div class="orient-icon-portrait"></div> Portrait</div>
+                <div class="orient-btn ${state.metalOrientation==='landscape'?'active':''}" onclick="selectMetalOrientation('landscape')"><div class="orient-icon-landscape"></div> Landscape</div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">3</span> Printing Effect</div>
+              <div class="size-options">
+                <div class="size-btn ${state.metalEffect==='flat'?'active':''}" onclick="selectMetalEffect('flat')"><span class="dim" style="font-size:0.82rem">Flat</span><span class="size-name">Smooth finish</span></div>
+                <div class="size-btn ${state.metalEffect==='raised'?'active':''}" onclick="selectMetalEffect('raised')"><span class="dim" style="font-size:0.82rem">Raised</span><span class="size-name">Texture finish</span></div>
+                <div class="size-btn ${state.metalEffect==='3d'?'active':''}" onclick="selectMetalEffect('3d')"><span class="dim" style="font-size:0.82rem">3D</span><span class="size-name">3D Texture</span></div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">4</span> Frame (Optional)</div>
+              <div class="color-options">
+                <div class="color-option">
+                  <div class="color-swatch ${state.metalFrame==='none'?'active':''}" onclick="selectMetalFrame('none')" style="background:transparent;border:1.5px dashed var(--surface-3)"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">None</div>
+                </div>
+                <div class="color-option">
+                  <div class="color-swatch swatch-black ${state.metalFrame==='black'?'active':''}" onclick="selectMetalFrame('black')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">Black</div>
+                </div>
+                <div class="color-option">
+                  <div class="color-swatch swatch-white ${state.metalFrame==='white'?'active':''}" onclick="selectMetalFrame('white')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">White</div>
+                </div>
+                <div class="color-option">
+                  <div class="color-swatch swatch-natural ${state.metalFrame==='natural'?'active':''}" onclick="selectMetalFrame('natural')"><span class="check">${icons.check}</span></div>
+                  <div class="color-label">Natural</div>
+                </div>
+              </div>
+            </div>
+            <div class="customizer-step">
+              <div class="step-label"><span class="step-num">5</span> Upload Your Photo</div>
+              <div class="upload-zone" id="metalUploadZone" onclick="document.getElementById('metalFileInput').click()">
+                <div id="metalUploadContent">
+                  ${state.metalPhoto?`<div class="upload-preview"><img src="${state.metalPhoto}" alt="Uploaded"></div><div class="upload-actions"><button class="btn-crop" onclick="event.stopPropagation();openCrop('metal')">Crop &amp; Adjust</button><button class="btn-reupload" onclick="event.stopPropagation();document.getElementById('metalFileInput').value='';document.getElementById('metalFileInput').click()">Re-upload</button></div>`:`
+                  ${icons.upload}
+                  <p>Drag &amp; drop your photo here or click to browse</p>
+                  <div class="upload-hint">JPEG, PNG &mdash; minimum 2000px wide recommended</div>`}
+                </div>
+              </div>
+              <input type="file" id="metalFileInput" accept="image/*" style="display:none" onchange="handleMetalUpload(event)">
+            </div>
+            <button class="btn-add-cart" onclick="addToCart()">Add to Cart &mdash; $<span id="metalCartPrice">${p.toFixed(2)}</span></button>
+            <div class="cart-reassurance">
+              <p>${icons.lock} Secure Checkout</p>
+              <p>We'll send a digital proof for your approval before production</p>
+            </div>
+            <div class="pdp-description">
+              <button class="pdp-desc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.chev').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''">Product Description <span class="chev" style="transition:transform 0.3s;display:inline-block">${icons.chevron}</span></button>
+              <div class="pdp-desc-content">
+                <p>Durable, vivid, and beautifully refined, this metal canvas is the perfect way to preserve your special moments with lasting brilliance and contemporary style. Choose from three texture finishes &mdash; Flat, Raised Texture, or 3D Texture &mdash; for your ideal look and feel. Available in Small (8&quot; &times; 10&quot;), Medium (11&quot; &times; 14&quot;), or Large (12&quot; &times; 16&quot;) sizes. Optional frames available in Black, White, and Natural Wood.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== CUSTOMIZER FUNCTIONS =====
+function initCustomizer(){
+  const zone=document.getElementById('uploadZone');
+  if(zone){
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.style.borderColor='var(--primary)'});
+    zone.addEventListener('dragleave',()=>{zone.style.borderColor=''});
+    zone.addEventListener('drop',e=>{e.preventDefault();zone.style.borderColor='';if(e.dataTransfer.files.length){document.getElementById('fileInput').files=e.dataTransfer.files;handleUpload({target:{files:e.dataTransfer.files}})}});
+  }
+}
+function initDesktopCustomizer(){}
+
+function selectSize(s){
+  state.size=s;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('displayPrice').textContent=prices[s].toFixed(2);
+  document.getElementById('cartPrice').textContent=prices[s].toFixed(2);
+  document.getElementById('previewSizeLabel').textContent=`${sizeLabels[s]} \u2014 ${state.orientation.charAt(0).toUpperCase()+state.orientation.slice(1)}`;
+  const fp=document.getElementById('framePreview');
+  fp.className=`frame-preview ${state.orientation} size-${s}`;
+}
+
+function selectOrientation(o){
+  state.orientation=o;
+  document.querySelectorAll('.orient-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('framePreview').className=`frame-preview ${o} size-${state.size}`;
+  document.getElementById('previewSizeLabel').textContent=`${sizeLabels[state.size]} \u2014 ${o.charAt(0).toUpperCase()+o.slice(1)}`;
+  if(!state.photo){const def=document.getElementById('defaultPhoto');if(def)def.src=o==='landscape'?img.couplePortrait:img.familyPortrait;}
+}
+
+function selectFrameColor(c){
+  state.frameColor=c;
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('frameOuter').className=`frame-outer ${c}-frame`;
+}
+
+function selectFont(f){
+  state.font=f;
+  document.querySelectorAll('.font-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const fam=fontMap[f];
+  document.getElementById('previewLine1').style.fontFamily=fam;
+  document.getElementById('previewLine2').style.fontFamily=fam;
+}
+
+function updateText(line,val){
+  if(line===1){state.line1=val;document.getElementById('charCount1').textContent=val.length;document.getElementById('previewLine1').textContent=val;}
+  else{state.line2=val;document.getElementById('charCount2').textContent=val.length;document.getElementById('previewLine2').textContent=val;}
+}
+
+function handleUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=function(ev){
+    state.photo=ev.target.result;
+    const zone=document.getElementById('uploadZone');
+    zone.innerHTML=`<div class="upload-preview"><img src="${state.photo}" alt="Uploaded"></div><div class="upload-actions"><button class="btn-crop" onclick="event.stopPropagation();openCrop('shadow')">Crop & Adjust</button><button class="btn-reupload" onclick="event.stopPropagation();document.getElementById('fileInput').value='';document.getElementById('fileInput').click()">Re-upload</button></div>`;
+    const area=document.getElementById('frameImageArea');
+    const def=document.getElementById('defaultPhoto');
+    if(def)def.remove();
+    let im=area.querySelector('img');
+    if(!im){im=document.createElement('img');area.appendChild(im);}
+    im.src=state.photo;im.alt='Your photo';
+  };
+  r.readAsDataURL(file);
+}
+
+let cropData={img:null,sx:0,sy:0,sw:0,sh:0,scale:1,dragging:false,resizing:false,handle:'',startX:0,startY:0,origRect:{}};
+
+function openCrop(target){
+  state.cropTarget=target||'shadow';
+  let src=null;
+  if(target==='shadow')src=state.photo;
+  else if(target==='metal')src=state.metalPhoto;
+  else if(target&&target.startsWith('dp-'))src=state.dpPhotos[parseInt(target.split('-')[1])];
+  if(!src)return;
+  const overlay=document.getElementById('cropOverlay');
+  overlay.classList.add('active');
+  const canvas=document.getElementById('cropCanvas');
+  const ctx=canvas.getContext('2d');
+  const tempImg=new Image();
+  tempImg.onload=function(){
+    cropData.img=tempImg;
+    const maxW=580,maxH=430;
+    cropData.scale=Math.min(maxW/tempImg.width,maxH/tempImg.height,1);
+    canvas.width=tempImg.width*cropData.scale;
+    canvas.height=tempImg.height*cropData.scale;
+    ctx.drawImage(tempImg,0,0,canvas.width,canvas.height);
+    const sel=document.getElementById('cropSelection');
+    const pad=Math.min(canvas.width,canvas.height)*0.1;
+    sel.style.display='block';
+    sel.style.left=pad+'px';sel.style.top=pad+'px';
+    sel.style.width=(canvas.width-pad*2)+'px';sel.style.height=(canvas.height-pad*2)+'px';
+    cropData.sx=pad;cropData.sy=pad;cropData.sw=canvas.width-pad*2;cropData.sh=canvas.height-pad*2;
+    initCropDrag();
+  };
+  tempImg.src=src;
+}
+
+function initCropDrag(){
+  const sel=document.getElementById('cropSelection');
+  const ws=document.getElementById('cropWorkspace');
+  const canvas=document.getElementById('cropCanvas');
+  sel.onmousedown=function(e){
+    if(e.target.classList.contains('crop-handle')){
+      cropData.resizing=true;cropData.handle=e.target.dataset.handle;
+    }else{cropData.dragging=true;}
+    cropData.startX=e.clientX;cropData.startY=e.clientY;
+    cropData.origRect={l:parseInt(sel.style.left),t:parseInt(sel.style.top),w:parseInt(sel.style.width),h:parseInt(sel.style.height)};
+    e.preventDefault();
+  };
+  document.onmousemove=function(e){
+    if(!cropData.dragging&&!cropData.resizing)return;
+    const dx=e.clientX-cropData.startX,dy=e.clientY-cropData.startY;
+    const o=cropData.origRect;
+    if(cropData.dragging){
+      let nl=Math.max(0,Math.min(o.l+dx,canvas.width-o.w));
+      let nt=Math.max(0,Math.min(o.t+dy,canvas.height-o.h));
+      sel.style.left=nl+'px';sel.style.top=nt+'px';
+    }else if(cropData.resizing){
+      let nl=o.l,nt=o.t,nw=o.w,nh=o.h;
+      const h=cropData.handle;
+      if(h.includes('r'))nw=Math.max(50,Math.min(o.w+dx,canvas.width-o.l));
+      if(h.includes('b'))nh=Math.max(50,Math.min(o.h+dy,canvas.height-o.t));
+      if(h.includes('l')){nl=Math.max(0,o.l+dx);nw=o.w-(nl-o.l);if(nw<50){nw=50;nl=o.l+o.w-50;}}
+      if(h.includes('t')){nt=Math.max(0,o.t+dy);nh=o.h-(nt-o.t);if(nh<50){nh=50;nt=o.t+o.h-50;}}
+      sel.style.left=nl+'px';sel.style.top=nt+'px';sel.style.width=nw+'px';sel.style.height=nh+'px';
+    }
+  };
+  document.onmouseup=function(){cropData.dragging=false;cropData.resizing=false;};
+}
+
+function confirmCrop(){
+  const sel=document.getElementById('cropSelection');
+  const l=parseInt(sel.style.left)/cropData.scale;
+  const t=parseInt(sel.style.top)/cropData.scale;
+  const w=parseInt(sel.style.width)/cropData.scale;
+  const h=parseInt(sel.style.height)/cropData.scale;
+  const outCanvas=document.createElement('canvas');
+  outCanvas.width=w;outCanvas.height=h;
+  const ctx=outCanvas.getContext('2d');
+  ctx.drawImage(cropData.img,l,t,w,h,0,0,w,h);
+  const croppedData=outCanvas.toDataURL('image/jpeg',0.92);
+  const target=state.cropTarget;
+  if(target==='shadow'){state.photo=croppedData;state.croppedPhoto=croppedData;}
+  else if(target==='metal'){state.metalPhoto=croppedData;state.metalCroppedPhoto=croppedData;}
+  else if(target&&target.startsWith('dp-')){state.dpPhotos[parseInt(target.split('-')[1])]=croppedData;}
+  document.getElementById('cropOverlay').classList.remove('active');
+  document.onmousemove=null;document.onmouseup=null;
+  route();
+  showToast('Photo cropped successfully!');
+}
+
+function cancelCrop(){
+  document.getElementById('cropOverlay').classList.remove('active');
+  document.onmousemove=null;document.onmouseup=null;
+}
+
+function resetCrop(){
+  const canvas=document.getElementById('cropCanvas');
+  const sel=document.getElementById('cropSelection');
+  const pad=Math.min(canvas.width,canvas.height)*0.1;
+  sel.style.left=pad+'px';sel.style.top=pad+'px';
+  sel.style.width=(canvas.width-pad*2)+'px';sel.style.height=(canvas.height-pad*2)+'px';
+}
+
+function addToCart(){showToast('Added to cart!')}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function selectDPStyle(id){state.dpStyle=id;state.dpPhotos={};route()}
+function selectDPWood(w){state.dpWood=w;route()}
+function selectDPLight(l){state.dpLight=l;route()}
+function selectDPFont(f){state.dpFont=f;route()}
+function handleDPUpload(e,i){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=function(ev){state.dpPhotos[i]=ev.target.result;route()};r.readAsDataURL(file)}
+
+// ===== METAL CUSTOMIZER FUNCTIONS =====
+function initMetalCustomizer(){
+  const zone=document.getElementById('metalUploadZone');
+  if(zone){
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.style.borderColor='var(--primary)'});
+    zone.addEventListener('dragleave',()=>{zone.style.borderColor=''});
+    zone.addEventListener('drop',e=>{e.preventDefault();zone.style.borderColor='';if(e.dataTransfer.files.length){document.getElementById('metalFileInput').files=e.dataTransfer.files;handleMetalUpload({target:{files:e.dataTransfer.files}})}});
+  }
+}
+
+function selectMetalSize(s){
+  state.metalSize=s;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('metalDisplayPrice').textContent=metalPrices[s].toFixed(2);
+  document.getElementById('metalCartPrice').textContent=metalPrices[s].toFixed(2);
+  document.getElementById('metalSizeLabel').textContent=`${effectLabels[state.metalEffect]} \u2014 ${sizeLabels[s]} ${state.metalOrientation.charAt(0).toUpperCase()+state.metalOrientation.slice(1)}`;
+  const mp=document.getElementById('metalPreview');
+  mp.className=`metal-preview ${state.metalOrientation} size-${s} metal-${state.metalFrame}-frame`;
+}
+
+function selectMetalOrientation(o){
+  state.metalOrientation=o;
+  document.querySelectorAll('.orient-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('metalPreview').className=`metal-preview ${o} size-${state.metalSize} metal-${state.metalFrame}-frame`;
+  document.getElementById('metalSizeLabel').textContent=`${effectLabels[state.metalEffect]} \u2014 ${sizeLabels[state.metalSize]} ${o.charAt(0).toUpperCase()+o.slice(1)}`;
+}
+
+function selectMetalEffect(e){
+  state.metalEffect=e;
+  document.querySelectorAll('.customizer-step:nth-child(3) .size-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('metalSizeLabel').textContent=`${effectLabels[e]} \u2014 ${sizeLabels[state.metalSize]} ${state.metalOrientation.charAt(0).toUpperCase()+state.metalOrientation.slice(1)}`;
+}
+
+function selectMetalFrame(f){
+  state.metalFrame=f;
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('metalPreview').className=`metal-preview ${state.metalOrientation} size-${state.metalSize} metal-${f}-frame`;
+}
+
+function handleMetalUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=function(ev){
+    state.metalPhoto=ev.target.result;
+    const zone=document.getElementById('metalUploadZone');
+    zone.innerHTML=`<div class="upload-preview"><img src="${state.metalPhoto}" alt="Uploaded"></div><div class="upload-actions"><button class="btn-crop" onclick="event.stopPropagation();openCrop('metal')">Crop & Adjust</button><button class="btn-reupload" onclick="event.stopPropagation();document.getElementById('metalFileInput').value='';document.getElementById('metalFileInput').click()">Re-upload</button></div>`;
+    const area=document.getElementById('metalImageArea');
+    area.innerHTML=`<img src="${state.metalPhoto}" alt="Your photo">`;
+  };
+  r.readAsDataURL(file);
+}
+
+// ===== DESKTOP TEXT APPLY =====
+function applyDPText(line,val){
+  if(line===1){state.dpText1=val;}else{state.dpText2=val;}
+  route();
+}
+</script>
+</body>
+</html>
