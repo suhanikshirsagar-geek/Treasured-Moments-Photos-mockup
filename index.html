@@ -101,20 +101,21 @@ ul{list-style:none}
 .mobile-menu a{font-size:1rem}
 
 /* ===== 3. HERO ===== */
-.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;overflow:hidden}
-.hero-text{padding:4rem 4rem 4rem 0;padding-left:max(2rem,calc((100vw - 1240px)/2 + 2rem))}
-.hero-text .label-sm{margin-bottom:1.5rem;color:var(--primary-dark);font-weight:700}
+.hero{min-height:85vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:kenBurns 20s ease-in-out infinite alternate}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,253,240,.92) 0%,rgba(255,253,240,.7) 45%,rgba(255,253,240,.1) 100%)}
+.hero-content{max-width:560px;padding:4rem 0;position:relative;z-index:1}
+.hero-content .label-sm{margin-bottom:1.5rem;color:var(--primary-dark);font-weight:700}
 .hero h1{font-size:3.2rem;line-height:1.08;letter-spacing:-0.035em;margin-bottom:1.5rem}
 .hero p{font-size:1.05rem;color:var(--text-light);margin-bottom:2.5rem;max-width:440px;line-height:1.7}
 .hero-ctas{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
-.hero-img{height:100vh;overflow:hidden;position:relative}
-.hero-img img{width:100%;height:100%;object-fit:cover;animation:kenBurns 20s ease-in-out infinite alternate}
 @keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(1.04)}}
-.hero-text>*{opacity:0;animation:fadeUp 0.8s ease forwards}
-.hero-text>*:nth-child(1){animation-delay:0.1s}
-.hero-text>*:nth-child(2){animation-delay:0.25s}
-.hero-text>*:nth-child(3){animation-delay:0.4s}
-.hero-text>*:nth-child(4){animation-delay:0.55s}
+.hero-content>*{opacity:0;animation:fadeUp 0.8s ease forwards}
+.hero-content>*:nth-child(1){animation-delay:0.1s}
+.hero-content>*:nth-child(2){animation-delay:0.25s}
+.hero-content>*:nth-child(3){animation-delay:0.4s}
+.hero-content>*:nth-child(4){animation-delay:0.55s}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(20px)}}
 
 /* ===== 4. TRUST STRIP ===== */
@@ -245,6 +246,20 @@ ul{list-style:none}
 .frame-image-placeholder svg{opacity:0.4}
 .frame-text-area{text-align:center;padding-top:10px;min-height:20px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
 .frame-text-line{font-size:0.8rem;color:var(--text);line-height:1.3;transition:font-family 0.3s;min-height:1em}
+/* Dimension arrow lines */
+.dim-w,.dim-h{position:absolute;display:flex;align-items:center;color:var(--text-light);font-size:0.65rem;font-weight:600}
+.dim-w{bottom:70px;left:1.5rem;right:1.5rem;justify-content:center}
+.dim-h{top:0.5rem;bottom:1.5rem;right:60px;flex-direction:column;justify-content:center}
+.dim-line{background:rgba(0, 0, 0, 0.8);position:relative}
+.dim-w .dim-line{flex:0.3;height:1.5px}
+.dim-h .dim-line{width:1.5px;flex:0.4}
+.dim-line::before,.dim-line::after{content:'';position:absolute;border:3px solid transparent}
+.dim-w .dim-line::before{left:0;top:-3px;border-right-color:rgba(0, 0, 0, 0.8);border-left:0}
+.dim-w .dim-line::after{right:0;top:-3px;border-left-color:rgba(0, 0, 0, 0.8);border-right:0}
+.dim-h .dim-line::before{top:0;left:-3px;border-bottom-color:rgba(0, 0, 0, 0.8);border-top:0}
+.dim-h .dim-line::after{bottom:0;left:-3px;border-top-color:rgba(0, 0, 0, 0.8);border-bottom:0}
+.dim-lbl{padding:0 6px;white-space:nowrap}
+.dim-h .dim-lbl{padding:6px 0}
 .preview-size-label{text-align:center;font-size:0.72rem;color:var(--text-light);margin-top:1.2rem;letter-spacing:0.05em}
 .trust-badges-row{display:flex;justify-content:center;gap:1.5rem;margin-top:1.2rem;flex-wrap:wrap}
 .trust-badge-item{display:flex;align-items:center;gap:0.35rem;font-size:0.68rem;color:var(--text-light);letter-spacing:0.03em}
@@ -273,8 +288,10 @@ ul{list-style:none}
 .orient-btn{flex:1;padding:0.7rem;border:1.5px solid var(--surface-3);border-radius:var(--radius);text-align:center;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.82rem;background:var(--bg)}
 .orient-btn:hover{border-color:var(--primary)}
 .orient-btn.active{border-color:var(--primary);background:rgba(253,216,53,0.06)}
-.orient-icon-portrait{width:14px;height:20px;border:1.5px solid currentColor;border-radius:2px}
-.orient-icon-landscape{width:20px;height:14px;border:1.5px solid currentColor;border-radius:2px}
+.orient-icon-portrait{width:56px;height:80px;border:1.5px solid currentColor;border-radius:2px}
+.orient-icon-landscape{width:80px;height:56px;border:1.5px solid currentColor;border-radius:2px}
+.orient-btn .orient-icon-portrait{position:absolute;left:3px;top:50%;transform:translateY(-50%)}
+.orient-btn .orient-icon-landscape{position:absolute;left:3px;top:50%;transform:translateY(-50%)}
 .color-options{display:flex;gap:1.2rem}
 .color-option{text-align:center}
 .color-swatch{width:40px;height:40px;border-radius:50%;cursor:pointer;transition:var(--transition);position:relative;display:flex;align-items:center;justify-content:center}
@@ -360,14 +377,10 @@ ul{list-style:none}
 /* Desktop Photo Glass Effect */
 .dp-glass-plaque{position:relative;border-radius:16px;padding:1.5rem;width:280px;min-height:340px;background:linear-gradient(135deg,#e8e8e8 0%,#fafafa 20%,#e0e0e0 40%,#f5f5f5 60%,#e5e5e5 80%,#fbfbfb 100%);border:none;box-shadow:0 4px 20px rgba(135,206,235,0.15)}
 .dp-glass-plaque::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,0.3) 0%,transparent 40%,transparent 60%,rgba(255, 255, 255, 0.269) 100%);border-radius:16px;pointer-events:none}
-.dp-glass-glow{box-shadow:0 4px 20px rgba(135, 217, 235, 0.15)}
-.dp-glass-glow-color{box-shadow:0 4px 20px rgba(185, 235, 255, 0.292)}
+.dp-glass-glow{box-shadow:0 0 40px rgba(255,200,100,0.7),0 0 80px rgba(255,200,100,0.3),0 4px 20px rgba(0,0,0,0.08)}
+.dp-glass-glow-color{box-shadow:0 0 40px rgba(100,200,255,0.7),0 0 80px rgba(100,200,255,0.3),0 4px 20px rgba(0,0,0,0.08)}
 
-/* Text input with apply button */
-.text-input-apply{display:flex;gap:0;align-items:stretch}
-.text-input-apply input{flex:1;border-top-right-radius:0!important;border-bottom-right-radius:0!important;border-right:none!important}
-.text-input-apply .btn-apply-text{padding:0 0.7rem;background:var(--primary);color:var(--dark);border:1.5px solid var(--primary);border-radius:0 var(--radius) var(--radius) 0;font-size:0.7rem;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap;display:flex;align-items:center}
-.text-input-apply .btn-apply-text:hover{background:var(--primary-hover)}
+/* Text input styles (desktop photo) */
 
 /* Crop tool enhanced */
 .crop-workspace{position:relative;max-width:600px;max-height:450px;overflow:hidden;background:#111;border-radius:var(--radius)}
@@ -390,9 +403,8 @@ ul{list-style:none}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-text{padding:3rem 2rem}
-  .hero-img{height:50vh}
+  .hero{min-height:60vh}
+  .hero-content{padding:3rem 0}
   .pdp-grid{grid-template-columns:1fr}
   .pdp-preview-col{position:static}
   .editorial-inner{grid-template-columns:1fr}
@@ -616,7 +628,7 @@ const starRow = (count=5) => Array(count).fill(icons.star).join('');
 
 // ===== IMAGE URLS (Unsplash / Picsum fallback) =====
 const img = {
-  hero: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&h=1100&fit=crop&q=80',
+  hero: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=1400&q=80',
   colShadow: 'assests/Shadow box 1.jpeg',
   colShadowHover: 'assests/Shadow box 2.jpeg',
   colCanvas: 'assests/canvas angle 2.jpeg',
@@ -638,7 +650,7 @@ const img = {
   prodMissionary: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop&q=80',
   prodPuzzle: 'https://images.unsplash.com/photo-1494059980473-813e73ee784b?w=400&h=400&fit=crop&q=80',
   spotMissionary: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=500&fit=crop&q=80',
-  spotTemple: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=500&fit=crop&q=80',
+  spotTemple: 'assests/temple 2.webp',
   familyPortrait: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=750&fit=crop&q=80',
   couplePortrait: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=750&h=600&fit=crop&q=80'
 };
@@ -655,7 +667,7 @@ const state = {
 const prices = {'8x10':59.99,'11x14':79.99,'12x16':99.99};
 const metalPrices = {'8x10':69.99,'11x14':89.99,'12x16':109.99};
 const effectLabels = {'flat':'Flat','raised':'Raised Texture','3d':'3D Texture'};
-const sizeLabels = {'8x10':'8" \u00d7 10"','11x14':'11" \u00d7 14"','12x16':'12" \u00d7 16"'};
+const sizeLabels = {'8x10':'8" \u00d7 10"','11x14':'8" \u00d7 10"','12x16':'12" \u00d7 16"'};
 const sizeNames = {'8x10':'Small','11x14':'Medium','12x16':'Large'};
 const fontMap = {
   'Arial':'Arial, sans-serif',
@@ -712,17 +724,17 @@ function renderHomepage(){
   return `
   <!-- 3. HERO -->
   <section class="hero">
-    <div class="hero-text">
-      <span class="label-sm">Custom Photo Art</span>
-      <h1>Your Photographs, Transformed Into Heirloom Art</h1>
-      <p>Shadow boxes, canvas prints, illuminated displays &mdash; each piece handcrafted from your most treasured moments.</p>
-      <div class="hero-ctas">
-        <a href="#/product/shadow-box" class="btn-primary">Shop Shadow Boxes ${icons.arrow}</a>
-        <a href="#hiw" class="btn-text">See How It Works ${icons.arrow}</a>
+    <div class="hero-bg"><img src="${img.hero}" alt="Gallery wall with custom shadow box frames in a sunlit living room"></div>
+    <div class="container" style="position:relative;width:100%">
+      <div class="hero-content">
+        <span class="label-sm">Custom Photo Art</span>
+        <h1>Your Photographs, Transformed Into Heirloom Art</h1>
+        <p>Shadow boxes, canvas prints, illuminated displays &mdash; each piece handcrafted from your most treasured moments.</p>
+        <div class="hero-ctas">
+          <a href="#/product/shadow-box" class="btn-primary">Shop Shadow Boxes ${icons.arrow}</a>
+          <a href="#hiw" class="btn-text">See How It Works ${icons.arrow}</a>
+        </div>
       </div>
-    </div>
-    <div class="hero-img">
-      <img src="${img.hero}" alt="Gallery wall with custom shadow box frames in a sunlit living room">
     </div>
   </section>
 
@@ -961,6 +973,8 @@ function renderShadowBoxPDP(){
                   </div>
                 </div>
               </div>
+              <div class="dim-w"><div class="dim-line"></div><span class="dim-lbl" id="dimW">${state.orientation==='portrait'?state.size.split('x')[0]:state.size.split('x')[1]}"</span><div class="dim-line"></div></div>
+              <div class="dim-h"><div class="dim-line"></div><span class="dim-lbl" id="dimH">${state.orientation==='portrait'?state.size.split('x')[1]:state.size.split('x')[0]}"</span><div class="dim-line"></div></div>
             </div>
           </div>
           <div class="preview-size-label" id="previewSizeLabel">${sizeLabels[state.size]} &mdash; ${state.orientation.charAt(0).toUpperCase()+state.orientation.slice(1)}</div>
@@ -1092,8 +1106,8 @@ function renderDesktopPDP(){
                     ${state.dpPhotos[i]?`<img src="${state.dpPhotos[i]}" style="width:100%;height:100%;object-fit:cover">`:`Photo ${i+1}`}
                   </div>`).join('')}
               </div>
-              ${cfg.texts>0?`<div style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:1.1rem;color:var(--text);padding:4px 0;font-weight:600">${state.dpText1||'Your text here'}</div>`:''}
-              ${cfg.texts>1?`<div style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:0.9rem;color:var(--text-light);padding:2px 0">${state.dpText2||'Second line'}</div>`:''}
+              ${cfg.texts>0?`<div id="dpPreviewText1" style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:1.1rem;color:var(--text);padding:4px 0;font-weight:600">${state.dpText1||'Your text here'}</div>`:''}
+              ${cfg.texts>1?`<div id="dpPreviewText2" style="text-align:center;font-family:${fontMap[state.dpFont]};font-size:0.9rem;color:var(--text-light);padding:2px 0">${state.dpText2||'Second line'}</div>`:''}
             </div>
             <div style="width:110px;height:18px;background:${state.dpWood==='beech'?'linear-gradient(90deg,#d4b896,#e8cba8,#d4b896)':'linear-gradient(90deg,#5c3d2e,#7a5340,#5c3d2e)'};border-radius:4px;box-shadow:0 3px 8px rgba(0,0,0,0.12)"></div>
           </div>
@@ -1146,17 +1160,17 @@ function renderDesktopPDP(){
             <div class="customizer-step">
               <div class="step-label"><span class="step-num">5</span> Add Text</div>
               <div class="text-input-group">
-                <div class="text-input-apply"><input type="text" maxlength="25" placeholder="Text line 1 (up to 25 chars)" value="${state.dpText1}" onkeydown="if(event.key==='Enter')applyDPText(1,this.value)" style="border-top-right-radius:0;border-bottom-right-radius:0"><button class="btn-apply-text" onclick="applyDPText(1,this.previousElementSibling.value)">Apply</button></div>
-                <div class="char-counter"><span>${state.dpText1.length}</span>/25</div>
+                <div class="text-input-wrapper"><input type="text" maxlength="25" placeholder="Text line 1 (up to 25 chars)" value="${state.dpText1}" oninput="updateDPText(1,this.value)"></div>
+                <div class="char-counter"><span id="dpCharCount1">${state.dpText1.length}</span>/25</div>
               </div>
-              ${cfg.texts>1?`<div class="text-input-group"><div class="text-input-apply"><input type="text" maxlength="25" placeholder="Text line 2 (up to 25 chars)" value="${state.dpText2}" onkeydown="if(event.key==='Enter')applyDPText(2,this.value)" style="border-top-right-radius:0;border-bottom-right-radius:0"><button class="btn-apply-text" onclick="applyDPText(2,this.previousElementSibling.value)">Apply</button></div><div class="char-counter"><span>${state.dpText2.length}</span>/25</div></div>`:''}
+              ${cfg.texts>1?`<div class="text-input-group"><div class="text-input-wrapper"><input type="text" maxlength="25" placeholder="Text line 2 (up to 25 chars)" value="${state.dpText2}" oninput="updateDPText(2,this.value)"></div><div class="char-counter"><span id="dpCharCount2">${state.dpText2.length}</span>/25</div></div>`:''}
             </div>
             <div class="customizer-step">
               <div class="step-label"><span class="step-num">6</span> Upload Photos (${cfg.photos})</div>
               <div style="display:grid;grid-template-columns:repeat(${Math.min(cfg.photos,3)},1fr);gap:0.6rem">
                 ${Array.from({length:cfg.photos},(_,i)=>`
-                  <div class="upload-zone" style="padding:0.8rem" onclick="document.getElementById('dpFile${i}').click()">
-                    ${state.dpPhotos[i]?`<img src="${state.dpPhotos[i]}" style="max-height:70px;border-radius:4px;margin:0 auto"><div style="margin-top:0.3rem"><button class="btn-crop" style="font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:4px" onclick="event.stopPropagation();openCrop('dp-${i}')">Crop</button></div>`:`
+                  <div class="upload-zone dp-upload-zone" data-idx="${i}" style="padding:0.8rem" onclick="document.getElementById('dpFile${i}').click()">
+                    ${state.dpPhotos[i]?`<img src="${state.dpPhotos[i]}" style="max-height:70px;border-radius:4px;margin:0 auto"><div style="margin-top:0.3rem;display:flex;gap:0.3rem;justify-content:center"><button class="btn-crop" style="font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:4px" onclick="event.stopPropagation();openCrop('dp-${i}')">Crop</button><button class="btn-reupload" style="font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:4px" onclick="event.stopPropagation();delete state.dpPhotos[${i}];route();">Remove</button></div>`:`
                     <div style="font-size:1.3rem;color:var(--text-light)">+</div>
                     <div style="font-size:0.65rem;color:var(--text-light)">Photo ${i+1}</div>`}
                   </div>
@@ -1296,7 +1310,21 @@ function initCustomizer(){
     zone.addEventListener('drop',e=>{e.preventDefault();zone.style.borderColor='';if(e.dataTransfer.files.length){document.getElementById('fileInput').files=e.dataTransfer.files;handleUpload({target:{files:e.dataTransfer.files}})}});
   }
 }
-function initDesktopCustomizer(){}
+function initDesktopCustomizer(){
+  document.querySelectorAll('.dp-upload-zone').forEach(z=>{
+    const i=parseInt(z.dataset.idx);
+    z.addEventListener('dragover',e=>{e.preventDefault();z.style.borderColor='var(--primary)';});
+    z.addEventListener('dragleave',()=>{z.style.borderColor='';});
+    z.addEventListener('drop',e=>{
+      e.preventDefault();z.style.borderColor='';
+      if(e.dataTransfer.files.length){
+        const fi=document.getElementById('dpFile'+i);
+        if(fi)fi.files=e.dataTransfer.files;
+        handleDPUpload({target:{files:e.dataTransfer.files}},i);
+      }
+    });
+  });
+}
 
 function selectSize(s){
   state.size=s;
@@ -1307,6 +1335,7 @@ function selectSize(s){
   document.getElementById('previewSizeLabel').textContent=`${sizeLabels[s]} \u2014 ${state.orientation.charAt(0).toUpperCase()+state.orientation.slice(1)}`;
   const fp=document.getElementById('framePreview');
   fp.className=`frame-preview ${state.orientation} size-${s}`;
+  updateDims();
 }
 
 function selectOrientation(o){
@@ -1316,6 +1345,15 @@ function selectOrientation(o){
   document.getElementById('framePreview').className=`frame-preview ${o} size-${state.size}`;
   document.getElementById('previewSizeLabel').textContent=`${sizeLabels[state.size]} \u2014 ${o.charAt(0).toUpperCase()+o.slice(1)}`;
   if(!state.photo){const def=document.getElementById('defaultPhoto');if(def)def.src=o==='landscape'?img.couplePortrait:img.familyPortrait;}
+  updateDims();
+}
+
+function updateDims(){
+  const parts=state.size.split('x');
+  const w=state.orientation==='portrait'?parts[0]:parts[1];
+  const h=state.orientation==='portrait'?parts[1]:parts[0];
+  const dw=document.getElementById('dimW');if(dw)dw.textContent=w+'"';
+  const dh=document.getElementById('dimH');if(dh)dh.textContent=h+'"';
 }
 
 function selectFrameColor(c){
@@ -1520,10 +1558,17 @@ function handleMetalUpload(e){
   r.readAsDataURL(file);
 }
 
-// ===== DESKTOP TEXT APPLY =====
-function applyDPText(line,val){
-  if(line===1){state.dpText1=val;}else{state.dpText2=val;}
-  route();
+// ===== DESKTOP TEXT UPDATE (in-place, no re-render) =====
+function updateDPText(line,val){
+  if(line===1){
+    state.dpText1=val;
+    const c=document.getElementById('dpCharCount1');if(c)c.textContent=val.length;
+    const t=document.getElementById('dpPreviewText1');if(t)t.textContent=val||'Your text here';
+  } else {
+    state.dpText2=val;
+    const c=document.getElementById('dpCharCount2');if(c)c.textContent=val.length;
+    const t=document.getElementById('dpPreviewText2');if(t)t.textContent=val||'Second line';
+  }
 }
 </script>
 </body>
