@@ -358,10 +358,10 @@ ul{list-style:none}
 .metal-natural-frame .metal-surface{border:4px solid #b8956a;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
 
 /* Desktop Photo Glass Effect */
-.dp-glass-plaque{position:relative;border-radius:16px;padding:1.5rem;width:280px;min-height:340px;background:linear-gradient(135deg,rgba(255,255,255,0.5) 0%,rgba(240,248,255,0.85) 20%,rgba(255,255,255,0.35) 45%,rgba(240,248,255,0.8) 70%,rgba(255,255,255,0.45) 100%);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,0.6);box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 8px 32px rgba(0,0,0,0.08)}
-.dp-glass-plaque::before{content:'';position:absolute;top:8px;left:12px;width:45%;height:35%;background:radial-gradient(ellipse,rgba(255,255,255,0.7) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.dp-glass-glow{box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 0 30px rgba(255,200,100,0.35),0 8px 32px rgba(0,0,0,0.08)}
-.dp-glass-glow-color{box-shadow:inset 0 1px 3px rgba(255,255,255,0.9),inset 0 -1px 3px rgba(0,0,0,0.04),0 0 30px rgba(120,180,255,0.3),0 8px 32px rgba(0,0,0,0.08)}
+.dp-glass-plaque{position:relative;border-radius:16px;padding:1.5rem;width:280px;min-height:340px;background:linear-gradient(135deg,#e8e8e8 0%,#fafafa 20%,#e0e0e0 40%,#f5f5f5 60%,#e5e5e5 80%,#fbfbfb 100%);border:none;box-shadow:0 4px 20px rgba(135,206,235,0.15)}
+.dp-glass-plaque::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,0.3) 0%,transparent 40%,transparent 60%,rgba(255, 255, 255, 0.269) 100%);border-radius:16px;pointer-events:none}
+.dp-glass-glow{box-shadow:0 4px 20px rgba(135, 217, 235, 0.15)}
+.dp-glass-glow-color{box-shadow:0 4px 20px rgba(185, 235, 255, 0.292)}
 
 /* Text input with apply button */
 .text-input-apply{display:flex;gap:0;align-items:stretch}
@@ -625,10 +625,10 @@ const img = {
   colWoodHover: 'assests/living room acrylic.jpeg',
   colNight: 'assests/3 people acrylic.webp',
   colNightHover: 'assests/living room acrylic.jpeg',
-  colMissionary: 'assests/temple live setting.jpeg',
+  colMissionary: 'assests/Temple pic.jpg',
   colMissionaryHover: 'assests/missionary pic.webp',
   colTemple: 'assests/temple live setting.jpeg',
-  colTempleHover: 'assests/Shadow box 2.jpeg',
+  colTempleHover: 'assests/temple 2.webp',
   editorial: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&h=600&fit=crop&q=80',
   workshop: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1400&h=400&fit=crop&q=80',
   prodShadow: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&h=400&fit=crop&q=80',
